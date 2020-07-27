@@ -8,7 +8,7 @@ const routes = [
   {
     path: "/",
     name: "welcome",
-    component: Welcome,
+    component: Welcome
   },
   {
     path: "/home",
@@ -16,40 +16,39 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "pages" */ "../views/home"),
+    component: () => import(/* webpackChunkName: "pages" */ "../views/home")
   },
   //基本信息
   {
     path: "/baseInfo",
     name: "base-info",
-    component: () =>
-      import(/* webpackChunkName: "pages" */ "../views/baseInfo"),
+    component: () => import(/* webpackChunkName: "pages" */ "../views/baseInfo")
   },
   //流量查询
   {
     path: "/netFlowQuery",
     name: "net-flow-query",
     component: () =>
-      import(/* webpackChunkName: "pages" */ "../views/netFlowQuery"),
+      import(/* webpackChunkName: "pages" */ "../views/netFlowQuery")
   },
   //异网用户
   {
     path: "/otherUsers",
     name: "other-users",
     component: () =>
-      import(/* webpackChunkName: "pages" */ "../views/otherUsers"),
+      import(/* webpackChunkName: "pages" */ "../views/otherUsers")
   },
   //话费查询
   {
     path: "/chargeQuery",
     name: "other-users",
     component: () =>
-      import(/* webpackChunkName: "pages" */ "../views/chargeQuery"),
-  },
+      import(/* webpackChunkName: "pages" */ "../views/chargeQuery")
+  }
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
 });
 
 export default router;
