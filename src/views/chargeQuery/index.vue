@@ -1,3 +1,3 @@
 <template>
-  <div>chargeQuery</div>
+  <div>chargeQuerywerwerwe</div>
 </template>
