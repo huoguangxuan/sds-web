@@ -31,5 +31,12 @@
     "less-loader": "^5.0.0",
     "prettier": "^1.19.1",
     "vue-template-compiler": "^2.6.11"
+  },
+  "prettier": {
+    "eslintIntegration": true,
+    "stylelintIntegration": true,
+    "insertPragma": false,
+    "trailingComma": "none",
+    "arrowParens": "avoid"
   }
 }
