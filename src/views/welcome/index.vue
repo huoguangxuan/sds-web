@@ -1,6 +1,3 @@
 <template>
-  <div>
-    welcome
-    <div></div>
-  </div>
+  <div>welcome</div>
 </template>
