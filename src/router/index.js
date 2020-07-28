@@ -41,7 +41,7 @@ const routes = [
   //话费查询
   {
     path: "/chargeQuery",
-    name: "other-users",
+    name: "charge-query",
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/chargeQuery")
   }
