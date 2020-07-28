@@ -1,6 +1,3 @@
 <template>
-  <el-main>
-    welcome
-  </el-main>
+  <div>welcome</div>
 </template>
-<style lang="less" scoped></style>
