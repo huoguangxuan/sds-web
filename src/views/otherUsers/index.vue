@@ -1,7 +1,5 @@
 <template>
   <div class="otherUsers">
-    <!-- 顶部标题 -->
-    <div class="top">联通营业厅</div>
     <!-- 内容区域 -->
     <div class="center">
       <div v-qr="options" v-if="options"></div>
@@ -24,9 +22,9 @@ export default {
         background: "#fff",
         foreground: "#000"
       }
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -37,12 +35,5 @@ export default {
 .otherUsers {
   width: 100vw;
   height: 100vh;
-  .top {
-    width: 100vw;
-    height: 8vh;
-    border-bottom: 2px solid #ccc;
-    box-sizing: border-box;
-    text-align: center;
-  }
 }
 </style>
