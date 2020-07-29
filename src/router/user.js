@@ -1,7 +1,7 @@
 export default [
   {
-    path: "/login",
-    name: "login",
+    path: "/test",
+    name: "test",
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/login/index.vue"),
     meta: {
@@ -9,16 +9,16 @@ export default [
       // auth: true,
       // keepAlive: true
     }
+  },
+  {
+    path: "/login",
+    name: "login",
+    meta: {
+      title: "请扫描二维码完成授权"
+    },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "pages" */ "../views/login")
   }
-  // {
-  //   path: "/register",
-  //   name: "register",
-  //   component: () =>
-  //     import(/* webpackChunkName: "register" */ "views/user/Register.vue"),
-  //   meta: {
-  //     title: "注册"
-  //     // auth: true,
-  //     // keepAlive: true
-  //   }
-  // }
 ];
