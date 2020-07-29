@@ -54,4 +54,21 @@ const router = new VueRouter({
   routes
 });
 
+// 导航守卫
+// // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
+// router.beforeEach((to, from, next) => {
+//   debugger;
+//   if (to.path === "/") {
+//     next();
+//   } else {
+//     debugger;
+//     let token = localStorage.getItem("token");
+//     if (token === "null" || token === "") {
+//       next("/");
+//     } else {
+//       next();
+//     }
+//   }
+// });
+
 export default router;
