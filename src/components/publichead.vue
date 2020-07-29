@@ -1,6 +1,11 @@
 <template>
-  <div class="publichead">
-    <img @click="backToPrevious()" src="../../src/assets/back.png" alt="" />
+  <div class="publichead" v-if="$route.path !== '/'">
+    <img
+      v-if="$route.path !== '/home'"
+      @click="backToPrevious()"
+      src="../../src/assets/back.png"
+      alt=""
+    />
     <span>{{ title }}</span>
   </div>
 </template>

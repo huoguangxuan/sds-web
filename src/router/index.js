@@ -57,14 +57,13 @@ const router = new VueRouter({
 // 导航守卫
 // // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 // router.beforeEach((to, from, next) => {
-//   debugger;
-//   if (to.path === "/") {
+//   if (to.path === "/welcome") {
 //     next();
 //   } else {
-//     debugger;
 //     let token = localStorage.getItem("token");
 //     if (token === "null" || token === "") {
-//       next("/");
+//       router.push({ path: "/login" });
+//       next("/login");
 //     } else {
 //       next();
 //     }
