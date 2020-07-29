@@ -24,9 +24,9 @@ export default {
         background: "#fff",
         foreground: "#000"
       }
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

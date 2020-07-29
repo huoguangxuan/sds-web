@@ -4,6 +4,7 @@
   </div>
 </template>
 
+<<<<<<< Updated upstream
 <style lang="less">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -15,6 +16,16 @@
 
 #nav {
   padding: 30px;
+=======
+<script>
+import PublicHeade from "./components/publichead";
+export default {
+  components: {
+    PublicHeade
+  }
+};
+</script>
+>>>>>>> Stashed changes
 
   a {
     font-weight: bold;

@@ -1,42 +1,24 @@
 <template>
   <!-- 话费查询 -->
   <div class="changeQuery">
-    <!-- 顶部标题 -->
-    <div class="top">联通营业厅</div>
-    <!-- 内容区域 -->
-    <div class="center">
-      <ul>
-        <li>
-          <p>话费查询</p>
-          <button>返回</button>
-        </li>
-      </ul>
-    </div>
+    <p>请问您是要给手机{{ phoneNumber }}充值吗？</p>
+    <p>
+      如果是，请说“<router-link :to="{ name: 'recharging' }"
+        ><el-button type="primary">确认</el-button></router-link
+      >”。
+    </p>
+    <p>如果不是，请您说出需要充值的手机号码。</p>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      phoneNumber: 18612341234
+    };
   }
 };
 </script>
 
-<style lang="less" scoped>
-* {
-  margin: 0;
-  padding: 0;
-}
-.changeQuery {
-  width: 100vw;
-  height: 100vh;
-  .top {
-    width: 100vw;
-    height: 8vh;
-    border-bottom: 2px solid #ccc;
-    box-sizing: border-box;
-    text-align: center;
-  }
-}
-</style>
+<style lang="less" scoped></style>
