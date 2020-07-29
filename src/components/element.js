@@ -1,7 +1,16 @@
-import { Button, Row, Col, Container, Header, Main, Aside, Progress } from "element-ui";
+import {
+  Button,
+  Row,
+  Col,
+  Container,
+  Header,
+  Main,
+  Aside,
+  Progress
+} from "element-ui";
 
 const element = {
-  install: function (Vue) {
+  install: function(Vue) {
     Vue.component(Button.name, Button);
     Vue.component(Row.name, Row);
     Vue.component(Container.name, Container);
@@ -11,7 +20,7 @@ const element = {
     Vue.component(Col.name, Col);
     Vue.component(Aside.name, Aside);
     Vue.component(Progress.name, Progress);
-  },
+  }
 };
 
 export default element;
