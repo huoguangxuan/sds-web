@@ -8,12 +8,12 @@ import axios from "axios";
 // } from 'element-ui'
 import store from "../store";
 
-const createRequestInterceptors = (headers) => {
-  return (config) => {
+const createRequestInterceptors = headers => {
+  return config => {
     //get 请求参数加时间
     if (config.method.toLocaleLowerCase() == "get")
       config.params = Object.assign({}, config.params, {
-        timestr: +new Date(),
+        timestr: +new Date()
       });
 
     for (var key in headers) {
@@ -55,11 +55,11 @@ const createRequestInterceptors = (headers) => {
   };
 };
 
-const requestInterceptorsError = (err) => {
+const requestInterceptorsError = err => {
   return Promise.reject(err);
 };
 
-const responseInterceptors = (response) => {
+const responseInterceptors = response => {
   if (response.config.responseType !== "arraybuffer") {
     //判断返回数据没有status时为下载文件接口，返回所有数据提供给前端做相应处理
     return response.data;
@@ -68,7 +68,7 @@ const responseInterceptors = (response) => {
   }
 };
 
-const responseInterceptorsError = (error) => {
+const responseInterceptorsError = error => {
   var status, isNotLoginPage;
   isNotLoginPage =
     window._router && window._router.currentRoute.name === "Login"
@@ -83,8 +83,8 @@ const responseInterceptorsError = (error) => {
       window._router.replace({
         path: "/#/login",
         query: {
-          redirect: window._router.currentRoute.fullPath,
-        },
+          redirect: window._router.currentRoute.fullPath
+        }
       });
       // Message.error('当前用户验证失败,请重新登录!');
     } else if (status == "404") {
@@ -111,7 +111,7 @@ const responseInterceptorsError = (error) => {
 // // http response 拦截器
 // axios.interceptors.response.use(responseInterceptors, responseInterceptorsError);
 
-export const createAxios = (mode) => {
+export const createAxios = mode => {
   var instance = axios.create();
   instance.defaults.timeout = 60000;
   instance.defaults.baseURL = "/";
@@ -122,14 +122,14 @@ export const createAxios = (mode) => {
   if (mode === "formData") {
     instance.interceptors.request.use(
       createRequestInterceptors({
-        "Content-type": "multipart/form-data",
+        "Content-type": "multipart/form-data"
       }),
       requestInterceptorsError
     );
   } else {
     instance.interceptors.request.use(
       createRequestInterceptors({
-        "Content-Type": "application/json;charset=UTF-8",
+        "Content-Type": "application/json;charset=UTF-8"
       }),
       requestInterceptorsError
     );
