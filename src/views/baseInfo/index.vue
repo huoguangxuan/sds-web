@@ -1,9 +1,3 @@
 <template>
-  <div>info1212</div>
+  <div>baseInfo</div>
 </template>
-
-<script>
-export default {};
-</script>
-
-<style></style>

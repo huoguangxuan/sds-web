@@ -8,10 +8,7 @@ const routes = [
   {
     path: "/",
     name: "welcome",
-    component: Welcome,
-    meta: {
-      title: "请扫描二维码完成授权"
-    }
+    component: Welcome
   },
   {
     path: "/home",
@@ -44,7 +41,7 @@ const routes = [
   //话费查询
   {
     path: "/chargeQuery",
-    name: "charge-query",
+    name: "other-users",
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/chargeQuery")
   }
