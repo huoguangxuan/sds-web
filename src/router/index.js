@@ -8,7 +8,10 @@ const routes = [
   {
     path: "/",
     name: "welcome",
-    component: Welcome
+    component: Welcome,
+    meta: {
+      title: "请扫描二维码完成授权"
+    }
   },
   {
     path: "/home",
