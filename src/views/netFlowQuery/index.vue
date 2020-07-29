@@ -7,7 +7,12 @@
       <div class="content">
         <div class="title">
           <h3>余量查询</h3>
-          <el-button type="primary" icon="el-icon-arrow-left" size="small">
+          <el-button
+            type="primary"
+            icon="el-icon-arrow-left"
+            size="small"
+            @click="back"
+          >
             返 回
           </el-button>
         </div>
@@ -93,6 +98,11 @@ export default {
       text: 30,
       flag: true
     };
+  },
+  methods: {
+    back() {
+      this.$router.go(-1);
+    }
   }
 };
 </script>
