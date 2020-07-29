@@ -1,14 +1,14 @@
 <template>
   <el-main>
     <el-container>
-      <el-row gutter="24" class="content">
-        <el-col span="14" class="text-center">
+      <el-row :gutter="24" class="content">
+        <el-col :span="14" class="text-center">
           <h1>请扫描右侧二维码</h1>
           <h2>
             该内容需要"手机营业厅"登录授权<br />请打开手机营业厅app扫描二维码
           </h2>
         </el-col>
-        <el-col span="10">
+        <el-col :span="10">
           <qrcode
             :value="value"
             :size="size"
@@ -57,5 +57,6 @@ h1 {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 70vh;
 }
 </style>
