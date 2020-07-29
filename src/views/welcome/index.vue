@@ -4,8 +4,6 @@
     <qrcode :value="value" :size="size" level="H"></qrcode>
   </el-main>
 </template>
-<<<<<<< Updated upstream
-=======
 <script>
 export default {
   data: function() {
@@ -17,4 +15,3 @@ export default {
 };
 </script>
 <style lang="less" scoped></style>
->>>>>>> Stashed changes

@@ -8,12 +8,8 @@ import {
   Aside,
   Progress
 } from "element-ui";
-<<<<<<< Updated upstream
-
-=======
 //生成二维码的组件 https://www.npmjs.com/package/qrcode.vue
 import QrcodeVue from "qrcode.vue";
->>>>>>> Stashed changes
 const element = {
   install: function(Vue) {
     Vue.component(Button.name, Button);
