@@ -4,8 +4,8 @@
     <div class="top">联通营业厅</div>
     <!-- 内容区域 -->
     <div class="center">
-      <p>对不起，暂时只支持联通手机号码的查询业务</p>
       <div v-qr="options" v-if="options"></div>
+      <p>正在为手机充值话费</p>
     </div>
   </div>
 </template>
