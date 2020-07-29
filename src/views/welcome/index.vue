@@ -5,13 +5,13 @@
   </el-main>
 </template>
 <script>
-  export default {
-    data: function() {
-      return {
-        value: "www.baidu.com",
-        size: 300
-      };
-    }
-  };
+export default {
+  data: function() {
+    return {
+      value: "www.baidu.com",
+      size: 300
+    };
+  }
+};
 </script>
 <style lang="less" scoped></style>
