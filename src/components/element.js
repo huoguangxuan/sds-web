@@ -1,4 +1,4 @@
-import { Button, Row, Col, Container, Header, Main, Aside } from "element-ui";
+import { Button, Row, Col, Container, Header, Main, Aside,Progress } from "element-ui";
 //生成二维码的组件 https://www.npmjs.com/package/qrcode.vue
 import QrcodeVue from "qrcode.vue";
 const element = {
@@ -11,6 +11,7 @@ const element = {
     Vue.component(Col.name, Col);
     Vue.component(Col.name, Col);
     Vue.component(Aside.name, Aside);
+    Vue.component(Progress.name, Progress);
     Vue.component("qrcode", QrcodeVue);
   }
 };
