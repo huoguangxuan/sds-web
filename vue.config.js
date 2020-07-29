@@ -6,11 +6,11 @@ module.exports = {
     resolve: {
       modules: ["./components", "node_modules"],
       alias: {
-        "@components": path.join(__dirname, "src/components"),
-      },
-    },
+        "@components": path.join(__dirname, "src/components")
+      }
+    }
   },
   devServer: {
-    open: true,
-  },
+    open: true
+  }
 };

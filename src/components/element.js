@@ -10,7 +10,7 @@ const element = {
     Vue.component(Col.name, Col);
     Vue.component(Col.name, Col);
     Vue.component(Aside.name, Aside);
-  },
+  }
 };
 
 export default element;
