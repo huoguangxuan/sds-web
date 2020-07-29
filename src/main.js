@@ -4,7 +4,9 @@ import router from "./router";
 import store from "./store";
 import element from "@components/element";
 import "element-ui/lib/theme-chalk/index.css";
+import qrcode from "vue-qrcode-directive";
 
+Vue.use(qrcode);
 Vue.use(element);
 
 Vue.config.productionTip = false;
