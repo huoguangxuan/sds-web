@@ -8,10 +8,7 @@ const routes = [
   {
     path: "/",
     name: "welcome",
-    component: Welcome,
-    meta: {
-      title: "请扫描二维码完成授权"
-    }
+    component: Welcome
   },
   {
     path: "/home",
@@ -20,6 +17,17 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "pages" */ "../views/home")
+  },
+  {
+    path: "/login",
+    name: "login",
+    meta: {
+      title: "请扫描二维码完成授权"
+    },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "pages" */ "../views/login")
   },
   //基本信息
   {
