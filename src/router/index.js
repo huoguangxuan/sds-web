@@ -36,8 +36,8 @@ let routes = [
   },
   //流量查询
   {
-    path: "/netFlowQuery",
-    name: "net-flow-query",
+    path: "/netFlow",
+    name: "net-flow",
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/netFlowQuery")
   },
@@ -55,12 +55,30 @@ let routes = [
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/chargeQuery")
   },
-  // 话费充值中
+  // 话费充值
+  {
+    path: "/recharge",
+    name: "recharge",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/recharge")
+  },
+  // 金额选择
+  {
+    path: "/amountSelection",
+    name: "amount-selection",
+    component: () =>
+      import(
+        /* webpackChunkName: "pages" */ "../views/recharge/amountSelection"
+      ),
+    meta: {
+      title: "话费充值"
+    }
+  },
+  // 充值中
   {
     path: "/recharging",
     name: "recharging",
     component: () =>
-      import(/* webpackChunkName: "pages" */ "../views/chargeQuery/recharging")
+      import(/* webpackChunkName: "pages" */ "../views/recharge/recharging")
   }
 ];
 

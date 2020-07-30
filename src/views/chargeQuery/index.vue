@@ -1,13 +1,40 @@
 <template>
   <!-- 话费查询 -->
   <div class="changeQuery">
-    <p>请问您是要给手机{{ phoneNumber }}充值吗？</p>
-    <p>
-      如果是，请说“<router-link :to="{ name: 'recharging' }"
-        ><el-button type="primary">确认</el-button></router-link
-      >”。
-    </p>
-    <p>如果不是，请您说出需要充值的手机号码。</p>
+    <!-- 内容区域 -->
+    <div class="center">
+      <p class="txtmax">话费查询</p>
+      <!-- 查询明细 -->
+      <div class="detail">
+        <div class="phonehcarge">
+          <dl>
+            <dt>
+              <qrcode
+                :value="value"
+                :size="size"
+                level="H"
+                style="margin:10px"
+              ></qrcode>
+            </dt>
+            <dd>剩余话费</dd>
+            <dd>100.00元</dd>
+          </dl>
+        </div>
+        <div class="qrcode">
+          <dl>
+            <dt>
+              <qrcode
+                :value="value"
+                :size="size"
+                level="H"
+                style="margin:10px"
+              ></qrcode>
+            </dt>
+            <dd>扫码进入手机营业厅app了解更多信息</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,10 +42,46 @@
 export default {
   data() {
     return {
-      phoneNumber: 18612341234
+      value: "www.baidu.com",
+      size: 150
     };
   }
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+.changeQuery {
+  width: 100vw;
+  height: 100vh;
+  .center {
+    padding: 25px;
+    .txtmax {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .detail {
+      display: flex;
+      margin-top: 40px;
+      justify-content: center;
+    }
+  }
+}
+.qrcode {
+  width: 35%;
+  height: 35%;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+.phonehcarge {
+  width: 35%;
+  height: 35%;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+</style>

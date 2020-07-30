@@ -1,11 +1,11 @@
+// 导出一个插件的配置文件
+// 后处理器的配置文件
 module.exports = {
   plugins: {
-    autoprefixer: {
-      overrideBrowserslist: ["Android >= 4.0", "iOS >= 7"]
+    autoprefixer: {},
+    "postcss-pxtorem": {
+      rootValue: 96,
+      propList: ["*"]
     }
-    // "postcss-pxtorem": {
-    //   rootValue: 37.5,
-    //   propList: ["*"]
-    // }
   }
 };
