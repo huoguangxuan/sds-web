@@ -36,8 +36,8 @@ let routes = [
   },
   //流量查询
   {
-    path: "/netFlowQuery",
-    name: "net-flow-query",
+    path: "/netFlow",
+    name: "net-flow",
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/netFlowQuery")
   },
