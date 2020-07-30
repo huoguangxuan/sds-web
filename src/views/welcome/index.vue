@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <div>
     <h2>欢迎进入</h2>
     <img :src="logoSrc" alt="logo" style="width:20px;" />
     <qrcode :value="value" :size="size" level="H" style="margin:10px"></qrcode>
@@ -10,7 +10,7 @@
     <p v-if="user" class="prams">
       欢迎使用联通营业厅，可以为您查余量，查话费，查信息，请对我说您想要办理的业务
     </p>
-  </el-main>
+  </div>
 </template>
 <script>
 export default {
@@ -22,16 +22,8 @@ export default {
       logoSrc: require("../../assets/back.png")
     };
   }
-};
-</script>
+};</script>
 <style lang="less" scoped>
-.el-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-}
 .prams {
   font-size: 14px;
   margin: 10px;

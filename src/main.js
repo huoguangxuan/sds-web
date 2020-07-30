@@ -8,7 +8,7 @@ import QrcodeVue from "qrcode.vue";
 // 引入全局重置样式
 import "./assets/base.css";
 
-Vue.use(QrcodeVue);
+Vue.component("qrcode", QrcodeVue);
 
 Vue.config.productionTip = false;
 
