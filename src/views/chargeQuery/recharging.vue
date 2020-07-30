@@ -1,5 +1,6 @@
 <template>
   <div class="recharging">
+    aa
     <qrcode class="sdd" :value="value" :size="size" level="H"></qrcode>
   </div>
 </template>
