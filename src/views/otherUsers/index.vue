@@ -1,11 +1,9 @@
 <template>
   <div class="otherUsers">
-    <!-- 顶部标题 -->
-    <div class="top">联通营业厅</div>
     <!-- 内容区域 -->
     <div class="center">
+      <qrcode :value="value" :size="size" level="H" style="margin:10px"></qrcode>
       <p>对不起，暂时只支持联通手机号码的查询业务</p>
-      <div v-qr="options" v-if="options"></div>
     </div>
   </div>
 </template>
@@ -14,6 +12,8 @@
 export default {
   data() {
     return {
+      value: "www.baidu.com",
+      size: 150,
       options: {
         text: "二维码",
         render: "canvas",
@@ -35,14 +35,10 @@ export default {
   padding: 0;
 }
 .otherUsers {
-  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   height: 100vh;
-  .top {
-    width: 100vw;
-    height: 8vh;
-    border-bottom: 2px solid #ccc;
-    box-sizing: border-box;
-    text-align: center;
-  }
 }
 </style>

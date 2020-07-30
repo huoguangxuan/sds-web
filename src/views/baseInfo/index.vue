@@ -1,13 +1,16 @@
 <template>
   <div class="pages">
     <div class="main_box">
+      <!-- 顶部标题 -->
       <div class="title">
         <div class="title_body">
           <div>当前等级:</div>
           <div>尊敬的一星忠诚用户，您拥有的特权有，生日问候。</div>
         </div>
       </div>
+      <!-- 下方内容 -->
       <div class="content">
+        <!-- 号码信息内容区域 -->
         <div class="content_left">
           <div class="left_title">
             <h3>号码信息</h3>
@@ -31,6 +34,7 @@
             </div>
           </div>
         </div>
+        <!-- 个人基础信息内容区域 -->
         <div class="content_right">
           <div class="right_title">
             <h3>个人基础信息</h3>
@@ -47,7 +51,7 @@
             <div class="body_span">
               <span>用户级别</span>
               <span>
-                <i class="el-icon-star-on" v-for="item in 5" :key="item"></i>
+                <van-icon name="star" v-for="item in 3" :key="item" />
               </span>
             </div>
             <div class="body_span">
@@ -66,7 +70,11 @@
 </template>
 
 <script>
+import { Icon } from "vant";
 export default {
+  components:{
+    [Icon.name]: Icon
+  },
   data() {
     return {
       text: 30,
@@ -80,6 +88,7 @@ export default {
     //   return
     // }
   },
+  created: {},
   methods: {}
 };
 </script>
