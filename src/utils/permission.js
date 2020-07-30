@@ -4,8 +4,7 @@ import store from "@/store";
 import { getToken } from "@/utils/auth"; // get token from cookie
 import getPageTitle from "@/utils/get-page-title";
 
-const whiteList = ["/login", "/", "/chargeQuery", "/baseInfo"]; // 白名单列表
-
+const whiteList = ["/login", "/", "/chargeQuery", "/recharging", "/baseInfo"]; // 白名单列表
 router.beforeEach(async (to, from, next) => {
   // 设置页面标题
   document.title = getPageTitle(to.meta.title);
