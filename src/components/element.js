@@ -21,6 +21,7 @@ const element = {
     Vue.component(Col.name, Col);
     Vue.component(Aside.name, Aside);
     Vue.component(Progress.name, Progress);
+    Vue.component("qrcode", QrcodeVue);
   }
 };
 

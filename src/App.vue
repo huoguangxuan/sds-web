@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <router-view />
+    <!-- 公共头部 -->
+    <public-heade></public-heade>
+    <!-- 内容区域 -->
+    <div class="contentArea">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -12,14 +17,4 @@ export default {
   }
 };
 </script>
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+<style lang="less" scoped></style>
