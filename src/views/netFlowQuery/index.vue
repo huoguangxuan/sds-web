@@ -19,8 +19,15 @@
     <div class="bottom">
       <div class="qrcode">
         <dl>
-          <dt id="qrcode"></dt>
-          <dd>扫码进入手机</dd>
+          <dt>
+            <qrcode
+              :value="value"
+              :size="size"
+              level="H"
+              style="margin:10px"
+            ></qrcode>
+          </dt>
+          <dd>扫码进入手机营业厅app了解更多信息</dd>
         </dl>
       </div>
     </div>
@@ -30,22 +37,10 @@
 <script>
 export default {
   data() {
-    return {};
-  },
-  methods: {
-    qrcode() {
-      let qrcode = new QrcodeVue("qrcode", {
-        width: 100,
-        height: 100, // 高度
-        text: "56663159", // 二维码内容
-        colorDark: "#f0f", //前景色
-        colorLight: "#ff0", //背景色
-        correctLevel: QrcodeVue.CorrectLevel.L //容错等级
-      });
-    }
-  },
-  mounted() {
-    this.qrcode();
+    return {
+      value: "www.baidu.com",
+      size: 100
+    };
   }
 };
 </script>
@@ -64,7 +59,7 @@ export default {
     list-style: none;
     display: flex;
     justify-content: space-between;
-    margin: 16px;
+    margin: 16px 20px;
   }
   .txtmax {
     font-size: 20px;
@@ -77,9 +72,12 @@ export default {
 .bottom {
   height: 50vh;
   padding: 25px;
+  display: flex;
+  flex-direction: row-reverse;
   .qrcode {
-    position: relative;
-    right: 0;
+    width: 190px;
+    height: 170px;
+    text-align: center;
   }
 }
 </style>

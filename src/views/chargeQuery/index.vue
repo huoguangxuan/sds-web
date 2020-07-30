@@ -3,52 +3,48 @@
   <div class="changeQuery">
     <!-- 内容区域 -->
     <div class="center">
-      <ul>
-        <li>
-          <p class="phonquiry">话费查询</p>
-          <button class="back">返回</button>
-        </li>
-        <li>
-          <p>账户可用金额</p>
-          <p>xx元</p>
-        </li>
-        <li>
-          <p>自由金额</p>
-          <p>xx元</p>
-        </li>
-        <li>
-          <p>定向金额</p>
-          <p>xx元</p>
-        </li>
-        <li>
-          <p>未结话费</p>
-          <p>xx元</p>
-        </li>
-        <li>
-          <p>实时金额</p>
-          <p>xx元</p>
-        </li>
-        <li>
-          <p>结转欠费</p>
-          <p>xx元</p>
-        </li>
-        <li>
-          <p>未使用定向金额</p>
-          <p>xx元</p>
-        </li>
-        <li>
-          <p>账户冻结金额</p>
-          <p>xx元</p>
-        </li>
-      </ul>
+      <p class="txtmax">话费查询</p>
+      <!-- 查询明细 -->
+      <div class="detail">
+        <div class="phonehcarge">
+          <dl>
+            <dt>
+              <qrcode
+                :value="value"
+                :size="size"
+                level="H"
+                style="margin:10px"
+              ></qrcode>
+            </dt>
+            <dd>剩余话费</dd>
+            <dd>100.00元</dd>
+          </dl>
+        </div>
+        <div class="qrcode">
+          <dl>
+            <dt>
+              <qrcode
+                :value="value"
+                :size="size"
+                level="H"
+                style="margin:10px"
+              ></qrcode>
+            </dt>
+            <dd>扫码进入手机营业厅app了解更多信息</dd>
+          </dl>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {};
+  data() {
+    return {
+      value: "www.baidu.com",
+      size: 150
+    };
   }
 };
 </script>
@@ -59,26 +55,33 @@ export default {
   padding: 0;
 }
 .changeQuery {
-  list-style: none;
   width: 100vw;
   height: 100vh;
   .center {
-    padding: 0 25px;
-    ul li {
-      margin: 16px;
+    padding: 25px;
+    .txtmax {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .detail {
       display: flex;
-      justify-content: space-between;
+      margin-top: 40px;
+      justify-content: center;
     }
   }
 }
-.phonquiry {
-  font-size: 20px;
+.qrcode {
+  width: 35%;
+  height: 35%;
+  font-size: 28px;
   font-weight: bold;
+  text-align: center;
 }
-.back {
-  color: white;
-  width: 80px;
-  height: 30px;
-  background-color: blue;
+.phonehcarge {
+  width: 35%;
+  height: 35%;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
 }
 </style>
