@@ -22,7 +22,8 @@ export default {
       logoSrc: require("../../assets/back.png")
     };
   }
-};</script>
+};
+</script>
 <style lang="less" scoped>
 .prams {
   font-size: 14px;

@@ -7,6 +7,8 @@ import QrcodeVue from "qrcode.vue";
 
 // 引入全局重置样式
 import "./assets/base.css";
+// 根据屏幕宽度动态设置rem基准值
+import "amfe-flexible";
 
 Vue.component("qrcode", QrcodeVue);
 
