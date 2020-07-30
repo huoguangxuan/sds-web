@@ -1,24 +1,26 @@
 <template>
-  <div class="publichead">
-    <img @click="backToPrevious()" src="../../src/assets/back.png" alt="" />
+  <div class="publichead" v-if="$route.path !== '/'">
+    <img
+      v-if="$route.path !== '/home' && $route.path !== '/login'"
+      @click="backToPrevious()"
+      src="@/assets/back.png"
+      alt
+    />
     <span>{{ title }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {};
-  },
   computed: {
     // 判断路由元信息
-    title() {
+    title: function () {
       return this.$route.meta.title ? this.$route.meta.title : "联通营业厅";
     }
   },
   methods: {
     // 返回上一页
-    backToPrevious() {
+    backToPrevious () {
       return this.$router.back(-1);
     }
   }
