@@ -8,11 +8,14 @@
           <p class="txtmax">余量查询</p>
         </li>
         <li>
-          <span class="txtmax">剩余语音</span><span class="txtmin">xx分钟</span>
+          <span class="txtmax">已用流量</span
+          ><span class="txtmin">xxGB\MB</span>
         </li>
+        <van-progress :percentage="80" stroke-width="20" color="#41403E" />
         <li>
           <span class="txtmax">剩余语音</span><span class="txtmin">xx分钟</span>
         </li>
+        <van-progress :percentage="80" stroke-width="20" color="#41403E" />
       </ul>
     </div>
     <!-- 底部 -->
