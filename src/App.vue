@@ -10,12 +10,11 @@
 </template>
 
 <script>
-  import PublicHeade from "./components/publichead";
-  export default {
-    components: {
-      PublicHeade
-    }
-  };
+import PublicHeade from "./components/publichead";
+export default {
+  components: {
+    PublicHeade
+  }
+};
 </script>
-
-<style lang="less"></style>
+<style lang="less" scoped></style>
