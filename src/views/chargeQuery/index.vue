@@ -6,7 +6,7 @@
       <ul>
         <li>
           <p class="phonquiry">话费查询</p>
-          <el-button type="primary" class="back">返回</el-button>
+          <button class="back">返回</button>
         </li>
         <li>
           <p>账户可用金额</p>
@@ -47,10 +47,10 @@
 
 <script>
 export default {
-  data() {
-    return {}
+  data () {
+    return {};
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -63,6 +63,7 @@ export default {
   width: 100vw;
   height: 100vh;
   .center {
+    padding: 0 25px;
     ul li {
       margin: 16px;
       display: flex;
@@ -78,5 +79,6 @@ export default {
   color: white;
   width: 80px;
   height: 30px;
+  background-color: blue;
 }
 </style>
