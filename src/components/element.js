@@ -6,7 +6,8 @@ import {
   Header,
   Main,
   Aside,
-  Progress
+  Progress,
+  Message
 } from "element-ui";
 //生成二维码的组件 https://www.npmjs.com/package/qrcode.vue
 import QrcodeVue from "qrcode.vue";
@@ -21,6 +22,7 @@ const element = {
     Vue.component(Col.name, Col);
     Vue.component(Aside.name, Aside);
     Vue.component(Progress.name, Progress);
+    Vue.component(Message.name, Message);
     Vue.component("qrcode", QrcodeVue);
   }
 };
