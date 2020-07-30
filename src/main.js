@@ -3,13 +3,12 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "@/utils/permission";
-// import element from "@/components/element";
-// import "element-ui/lib/theme-chalk/index.css";
+import QrcodeVue from "qrcode.vue";
 
 // 引入全局重置样式
 import "./assets/base.css";
 
-// Vue.use(element);
+Vue.use(QrcodeVue);
 
 Vue.config.productionTip = false;
 
