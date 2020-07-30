@@ -8,10 +8,12 @@ const whiteList = [
   "/login",
   "/",
   "/chargeQuery",
-  "/recharging",
-  "/baseInfo",
   "/otherUsers",
-  "/404"
+  "/404",
+  "/recharge",
+  "/amountSelection",
+  "/recharging",
+  "/baseInfo"
 ]; // 白名单列表
 router.beforeEach(async (to, from, next) => {
   // 设置页面标题

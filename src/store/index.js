@@ -26,7 +26,6 @@ export default new Vuex.Store({
   mutations: {
     // 更新页面切换方向
     updateDirection(state, direction) {
-      console.log(state);
       state.direction = direction;
     }
   },

@@ -61,6 +61,18 @@ let routes = [
     name: "recharge",
     component: () => import(/* webpackChunkName: "pages" */ "../views/recharge")
   },
+  // 金额选择
+  {
+    path: "/amountSelection",
+    name: "amount-selection",
+    component: () =>
+      import(
+        /* webpackChunkName: "pages" */ "../views/recharge/amountSelection"
+      ),
+    meta: {
+      title: "话费充值"
+    }
+  },
   // 充值中
   {
     path: "/recharging",
