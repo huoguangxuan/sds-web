@@ -153,9 +153,26 @@ em {
 .hide {
   display: none;
 }
+/* 主标题和副标题 */
 .tit1 {
   font-size: 26px;
 }
 .tit2 {
   font-size: 22px;
+  margin: 10px;
+}
+
+/* flex垂直居中 */
+.flexcc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* flex 左右排列*/
+.flexrow {
+  flex-direction: row;
+}
+/* flex 上下排列*/
+.flexcol {
+  flex-direction: column;
 }
