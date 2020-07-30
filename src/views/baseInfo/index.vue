@@ -4,7 +4,13 @@
       <!-- 顶部标题 -->
       <div class="title">
         <div class="title_body">
-          <div>当前等级:</div>
+          <div>
+            当前等级:
+            <span>
+              一星忠诚用户
+              <van-icon name="star" v-for="item in startNum" :key="item" />
+            </span>
+          </div>
           <div>尊敬的一星忠诚用户，您拥有的特权有，生日问候。</div>
         </div>
       </div>
@@ -51,7 +57,7 @@
             <div class="body_span">
               <span>用户级别</span>
               <span>
-                <van-icon name="star" v-for="item in 3" :key="item" />
+                <van-icon name="star" v-for="item in startNum" :key="item" />
               </span>
             </div>
             <div class="body_span">
@@ -72,7 +78,7 @@
 <script>
 import { Icon } from "vant";
 export default {
-  components:{
+  components: {
     [Icon.name]: Icon
   },
   data() {
@@ -111,6 +117,15 @@ export default {
         font-size: 17px;
         line-height: 28px;
         position: absolute;
+        span {
+          background-color: #c8903f;
+          padding: 5px 10px;
+          border-radius: 15px;
+          color: white;
+          i {
+            color: #edbd2f;
+          }
+        }
       }
     }
     .content {

@@ -2,7 +2,28 @@
   <div class="otherUsers">
     <!-- 内容区域 -->
     <div class="center">
-      <qrcode :value="value" :size="size" level="H" style="margin:10px"></qrcode>
+      <!-- 软件A -->
+      <div class="qrcode">
+        <qrcode
+          :value="optionA.value"
+          :size="size"
+          level="Q"
+          renderAs="svg"
+        ></qrcode>
+        <p>软件A名称</p>
+      </div>
+      <!-- 软件B -->
+      <div class="qrcode">
+        <qrcode
+          :value="optionB.value"
+          :size="size"
+          level="Q"
+          renderAs="svg"
+        ></qrcode>
+        <p>软件B名称</p>
+      </div>
+    </div>
+    <div class="content">
       <p>对不起，暂时只支持联通手机号码的查询业务</p>
     </div>
   </div>
@@ -12,17 +33,12 @@
 export default {
   data() {
     return {
-      value: "www.baidu.com",
       size: 150,
-      options: {
-        text: "二维码",
-        render: "canvas",
-        width: 256,
-        height: 256,
-        typeNumber: -1,
-        correctLevel: 2,
-        background: "#fff",
-        foreground: "#000"
+      optionA: {
+        value: "https://www.baidu.com"
+      },
+      optionB: {
+        value: "http://www.10010.com/"
       }
     };
   }
@@ -40,5 +56,16 @@ export default {
   align-items: center;
   flex-direction: column;
   height: 100vh;
+  .center {
+    display: flex;
+    text-align: center;
+    .qrcode {
+      width: 300px;
+      height: 260px;
+    }
+  }
+  .content {
+    font-size: 25px;
+  }
 }
 </style>
