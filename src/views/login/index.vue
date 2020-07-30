@@ -1,7 +1,7 @@
 <template>
   <div class="flexcc flexcol" style="height:80vh">
-    <div class="flexcc flexrow" v-if="!isQrcodeLogin" style="heihgt:170px">
-      <img src="@/assets/ss.jpg" alt="" style="width:120px;margin:25px;" />
+    <div class="flexcc flexrow" v-if="!isQrcodeLogin">
+      <img src="@/assets/ss.jpg" class="sanImg" alt="" />
       <div>
         <p class="ac scan">
           请使用<span style="color:orange">手机营业厅app</span><br />
@@ -10,32 +10,32 @@
         <qrcode class="qrcode" :value="value" :size="size" level="H" />
       </div>
     </div>
-    <div v-else class="flexcc flexrow" style="heihgt:170px">
-      <van-form validate-first @failed="onFailed">
+    <div v-else class="flexcc flexrow" style="heigt:258px;width:100%">
+      <van-form validate-first @failed="onFailed" style="width:40%">
         <!-- 通过 pattern 进行正则校验 -->
         <van-field
           v-model="value1"
           name="pattern"
-          placeholder="正则校验"
+          placeholder="请输入手机号"
           :rules="[{ pattern, message: '请输入正确内容' }]"
         />
         <!-- 通过 validator 进行函数校验 -->
         <van-field
           v-model="value2"
           name="validator"
-          placeholder="函数校验"
-          :rules="[{ validator, message: '请输入正确内容' }]"
+          placeholder="请输入密码"
+          :rules="[{ validator }]"
         />
         <!-- 通过 validator 进行异步函数校验 -->
-        <van-field
+        <!-- <van-field
           v-model="value3"
           name="asyncValidator"
           placeholder="异步函数校验"
           :rules="[{ validator: asyncValidator, message: '请输入正确内容' }]"
-        />
+        /> -->
         <div style="margin: 16px;">
-          <van-button round block type="info" native-type="submit">
-            提交
+          <van-button block type="warning" native-type="submit">
+            登录
           </van-button>
         </div>
       </van-form>
@@ -46,47 +46,50 @@
       </p>
     </div>
     <div class="logintype">
-      <div class="item" v-if="isPasswordLogin">
-        <div
-          class="circle"
-          @click="
-            () => {
-              isPasswordLogin = false;
-              isMessageLogin = true;
-              isQrcodeLogin = true;
-            }
-          "
-        >
+      <div
+        class="item"
+        v-if="isPasswordLogin"
+        @click="
+          () => {
+            isPasswordLogin = false;
+            isMessageLogin = true;
+            isQrcodeLogin = true;
+          }
+        "
+      >
+        <div class="circle">
           <van-icon name="lock" class="lock" />
         </div>
         密码登录
       </div>
-      <div class="item" v-if="isMessageLogin">
-        <div
-          class="circle"
-          @click="
-            () => {
-              isMessageLogin = false;
-              isQrcodeLogin = true;
-              isPasswordLogin = true;
-            }
-          "
-        >
+      <div
+        class="item"
+        v-if="isMessageLogin"
+        @click="
+          () => {
+            isMessageLogin = false;
+            isQrcodeLogin = true;
+            isPasswordLogin = true;
+          }
+        "
+      >
+        <div class="circle">
           <van-icon name="chat" class="chat" />
         </div>
         短信登录
       </div>
-      <div class="item" v-if="isQrcodeLogin">
-        <div
-          class="circle"
-          @click="
-            () => {
-              isQrcodeLogin = false;
-              isMessageLogin = true;
-              isPasswordLogin = true;
-            }
-          "
-        >
+      <div
+        class="item"
+        v-if="isQrcodeLogin"
+        @click="
+          () => {
+            isQrcodeLogin = false;
+            isMessageLogin = true;
+            isPasswordLogin = true;
+          }
+        "
+      >
+        <div class="circle">
           <van-icon name="qr" class="qr" />
         </div>
         扫码登录
@@ -134,11 +137,22 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.sanImg {
+  width: 120px;
+  margin: 25px;
+}
 .scan {
   font-size: 20px;
   line-height: 30px;
 }
 .qrcode {
+  width: 150px;
+  width: 150px;
+  /deep/ canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
   margin: 25px;
 }
 .logintype {
@@ -153,15 +167,17 @@ export default {
     align-items: center;
     width: 100px;
     font-size: 14px;
-    line-height: 28px;
+    line-height: 30px;
   }
 }
 .line {
+  position: relative;
+  font-size: 24px;
   &::before {
     content: "";
     border-bottom: 1px solid #999;
     width: 100px;
-    position: relative;
+    position: absolute;
     left: 125px;
     top: 12px;
     display: block;
