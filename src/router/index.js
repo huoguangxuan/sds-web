@@ -55,12 +55,18 @@ let routes = [
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/chargeQuery")
   },
-  // 话费充值中
+  // 话费充值
+  {
+    path: "/recharge",
+    name: "recharge",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/recharge")
+  },
+  // 充值中
   {
     path: "/recharging",
     name: "recharging",
     component: () =>
-      import(/* webpackChunkName: "pages" */ "../views/chargeQuery/recharging")
+      import(/* webpackChunkName: "pages" */ "../views/recharge/recharging")
   }
 ];
 
