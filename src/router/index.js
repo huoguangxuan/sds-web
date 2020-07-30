@@ -54,6 +54,13 @@ let routes = [
     name: "charge-query",
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/chargeQuery")
+  },
+  // 话费充值中
+  {
+    path: "/recharging",
+    name: "recharging",
+    component: () =>
+      import(/* webpackChunkName: "pages" */ "../views/chargeQuery/recharging")
   }
 ];
 
