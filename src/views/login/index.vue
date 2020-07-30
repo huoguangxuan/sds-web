@@ -135,6 +135,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .scan {
+  font-size: 20px;
   line-height: 30px;
 }
 .qrcode {
