@@ -76,11 +76,7 @@
 </template>
 
 <script>
-import { Icon } from "vant";
 export default {
-  components: {
-    [Icon.name]: Icon
-  },
   data() {
     return {
       text: 30,
