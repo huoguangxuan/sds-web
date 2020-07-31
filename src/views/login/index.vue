@@ -10,21 +10,26 @@
         <qrcode class="qrcode" :value="value" :size="size" level="H" />
       </div>
     </div>
-    <div v-else class="flexcc flexrow" style="heigt:258px;width:100%">
-      <van-form validate-first @failed="onFailed" style="width:40%">
+    <div v-else class="flexcc flexrow" style="width:100%">
+      <van-form validate-first @submit="onSubmit" style="width:40%">
         <!-- 通过 pattern 进行正则校验 -->
         <van-field
-          v-model="value1"
-          name="pattern"
+          v-model="mobile"
+          name="mobile"
+          type="tel"
+          clearable
           placeholder="请输入手机号"
-          :rules="[{ pattern, message: '请输入正确内容' }]"
         />
         <!-- 通过 validator 进行函数校验 -->
         <van-field
-          v-model="value2"
-          name="validator"
+          v-if="!isPasswordLogin"
+          v-model="password"
+          name="password"
+          :type="passwordType"
+          clearable
+          :right-icon="eye"
+          @click-right-icon="eyeClick"
           placeholder="请输入密码"
-          :rules="[{ validator }]"
         />
         <!-- 通过 validator 进行异步函数校验 -->
         <!-- <van-field
@@ -34,8 +39,24 @@
           :rules="[{ validator: asyncValidator, message: '请输入正确内容' }]"
         /> -->
         <div style="margin: 16px;">
-          <van-button block type="warning" native-type="submit">
+          <van-button
+            v-if="!isPasswordLogin"
+            block
+            :disabled="!submitStatus"
+            type="warning"
+            native-type="submit"
+          >
             登录
+          </van-button>
+          <van-button
+            v-else
+            block
+            type="warning"
+            @click="getCode"
+            :disabled="!mobileStatus"
+            native-type="submit"
+          >
+            获取手机短信验证码
           </van-button>
         </div>
       </van-form>
@@ -64,22 +85,6 @@
       </div>
       <div
         class="item"
-        v-if="isMessageLogin"
-        @click="
-          () => {
-            isMessageLogin = false;
-            isQrcodeLogin = true;
-            isPasswordLogin = true;
-          }
-        "
-      >
-        <div class="circle">
-          <van-icon name="chat" class="chat" />
-        </div>
-        短信登录
-      </div>
-      <div
-        class="item"
         v-if="isQrcodeLogin"
         @click="
           () => {
@@ -94,11 +99,28 @@
         </div>
         扫码登录
       </div>
+      <div
+        class="item"
+        v-if="isMessageLogin"
+        @click="
+          () => {
+            isMessageLogin = false;
+            isQrcodeLogin = true;
+            isPasswordLogin = true;
+          }
+        "
+      >
+        <div class="circle">
+          <van-icon name="chat" class="chat" />
+        </div>
+        短信登录
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { Toast } from "vant";
+import api from "@/api";
 export default {
   data: function() {
     return {
@@ -108,30 +130,64 @@ export default {
       isPasswordLogin: true, //密码登录
       isMessageLogin: true, //短信验证码登录
       isQrcodeLogin: false, //二维码登录
-      pattern: /\d{6}/,
-      value1: "",
-      value2: "",
-      value3: ""
+      mobilePattern: /^1[3|4|5|7|8][0-9]{9}$/, //手机号校验
+      passwordPattern: /^.\w{6,16}$/, //密码校验
+      mobile: "",
+      password: "",
+      vcode: "",
+      passwordType: "password",
+      eye: "closed-eye"
     };
   },
+  computed: {
+    mobileStatus() {
+      return this.mobilePattern.test(this.mobile);
+    },
+    submitStatus() {
+      return (
+        this.mobilePattern.test(this.mobile) &&
+        this.passwordPattern.test(this.password)
+      );
+    }
+  },
   methods: {
-    onFailed() {},
-    validator(val) {
-      return /1\d{10}/.test(val);
-    },
+    // onFailed(errorInfo) {
+    //   console.log(errorInfo);
+    // },
+    // validator(val) {
+    //   return /1\d{10}/.test(val);
+    // },
     // 异步校验函数返回 Promise
-    asyncValidator(val) {
-      return new Promise(resolve => {
-        Toast.loading("验证中...");
+    // asyncValidator(val) {
+    //   return new Promise(resolve => {
+    //     Toast.loading("验证中...");
 
-        setTimeout(() => {
-          Toast.clear();
-          resolve(/\d{6}/.test(val));
-        }, 1000);
-      });
+    //     setTimeout(() => {
+    //       Toast.clear();
+    //       resolve(/\d{6}/.test(val));
+    //     }, 1000);
+    //   });
+    // },
+    getCode() {
+      api
+        .getCode(this.mobile)
+        .then(res => {
+          Toast(res.code);
+        })
+        .catch(err => console.log(err));
     },
+    validatorMsg() {},
     onSubmit(values) {
       console.log("submit", values);
+    },
+    eyeClick() {
+      if (this.passwordType === "password") {
+        this.passwordType = "text";
+        this.eye = "eye-o";
+      } else {
+        this.passwordType = "password";
+        this.eye = "closed-eye";
+      }
     }
   }
 };
@@ -172,7 +228,7 @@ export default {
 }
 .line {
   position: relative;
-  font-size: 24px;
+  font-size: 16px;
   &::before {
     content: "";
     border-bottom: 1px solid #999;
@@ -207,5 +263,12 @@ export default {
     font-size: 24px;
     color: orange;
   }
+}
+/deep/ .van-cell::after {
+  border-bottom: 1px solid #999;
+}
+
+/deep/ input::input-placeholder {
+  color: #999;
 }
 </style>
