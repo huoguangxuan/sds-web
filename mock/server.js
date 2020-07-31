@@ -51,3 +51,5 @@ app.use("/getCode", function(req, res) {
 app.listen("8090", () => {
   console.log("监听端口 8090");
 });
+
+// nodemon babel-node server.js
