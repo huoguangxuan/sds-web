@@ -154,12 +154,12 @@ export default {
   created() {
     let params = {
       macNo: "1111122323",
-      userNo: '111111',
-      userPWD: '11111111'
+      userNo: "111111",
+      userPWD: "11111111"
     };
-    login(params).then(res=>{
-      console.log(res)
-    })
+    login(params).then(res => {
+      console.log(res);
+    });
   },
   methods: {
     // onFailed(errorInfo) {
@@ -195,7 +195,7 @@ export default {
         userNo: this.mobile,
         userPWD: this.password
       };
-      console.log(login(params))
+      console.log(login(params));
       // this.$store.dispatch("user/login", params);
       console.log("submit", values);
     },
