@@ -1,5 +1,5 @@
 <template>
-  <div class="flexcc flexcol" style="height:100vh">
+  <div class="flexcc flexcol welcome" style="height:100vh">
     <h3 class="tit2">欢迎进入</h3>
     <img class="logo" :src="logoSrc" alt="logo" />
     <h3 class="tit2">联通营业厅</h3>
@@ -9,6 +9,9 @@
     <p v-else>
       欢迎使用联通营业厅，可以为您查余量，查话费，查信息，请对我说您想要办理的业务
     </p>
+    <van-dialog v-model="show" title="标题" show-cancel-button>
+      <img src="https://img.yzcdn.cn/vant/apple-3.jpg" />
+    </van-dialog>
   </div>
 </template>
 <script>
@@ -18,8 +21,12 @@ export default {
       user: "",
       value: "www.baidu.com",
       size: 150,
-      logoSrc: require("@/assets/logo.png")
+      logoSrc: require("@/assets/logo.png"),
+      show: false
     };
+  },
+  mounted() {
+    this.show = false;
   }
 };
 </script>
@@ -28,5 +35,8 @@ export default {
   width: 200px;
   padding: 10px;
   background: #ccc;
+}
+.welcome p {
+  font-size: 24px;
 }
 </style>
