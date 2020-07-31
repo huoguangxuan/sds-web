@@ -1,7 +1,7 @@
-import Vue from "vue";
 import axios from "axios";
 import store from "@/store";
 import { getToken } from "@/utils/auth";
+import { Toast } from "vant";
 
 // create an axios instance
 const service = axios.create({
@@ -14,6 +14,10 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
+    if (config.method.toLocaleLowerCase() == "get")
+      config.params = Object.assign({}, config.params, {
+        timestr: +new Date()
+      });
     if (store.getters.token) {
       config.headers["X-Token"] = getToken();
     }
@@ -46,7 +50,7 @@ service.interceptors.response.use(
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         // to re-login
-        Vue.Message.confirm(
+        Toast.confirm(
           "You have been logged out, you can cancel to stay on this page, or log in again",
           "Confirm logout",
           {
@@ -67,7 +71,7 @@ service.interceptors.response.use(
   },
   error => {
     console.log("err" + error); // for debug
-    Vue.Message.danger({
+    Toast.fail({
       message: error.message
     });
     return Promise.reject(error);
