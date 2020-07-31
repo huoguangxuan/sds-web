@@ -7,7 +7,7 @@
         <qrcode
           :value="optionA.value"
           :size="size"
-          level="Q"
+          level="H"
           renderAs="svg"
         ></qrcode>
         <p>软件A名称</p>
@@ -17,7 +17,7 @@
         <qrcode
           :value="optionB.value"
           :size="size"
-          level="Q"
+          level="H"
           renderAs="svg"
         ></qrcode>
         <p>软件B名称</p>
@@ -61,7 +61,14 @@ export default {
     text-align: center;
     .qrcode {
       width: 300px;
-      height: 260px;
+      height: 220px;
+      /deep/ svg {
+        width: 130px !important;
+        height: 130px !important;
+      }
+      p {
+        font-size: 17px;
+      }
     }
   }
   .content {
