@@ -79,6 +79,13 @@ let routes = [
     name: "recharging",
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/recharge/recharging")
+  },
+  // 充值结束
+  {
+    path: "/rechargeOk",
+    name: "rechargeOk",
+    component: () =>
+      import(/* webpackChunkName: "pages" */ "../views/recharge/rechargeOk")
   }
 ];
 
