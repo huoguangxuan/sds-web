@@ -121,6 +121,7 @@
 <script>
 import { Toast } from "vant";
 import api from "@/api";
+import { login } from "@/api/index";
 export default {
   data: function() {
     return {
@@ -150,6 +151,16 @@ export default {
       );
     }
   },
+  created() {
+    let params = {
+      macNo: "1111122323",
+      userNo: '111111',
+      userPWD: '11111111'
+    };
+    login(params).then(res=>{
+      console.log(res)
+    })
+  },
   methods: {
     // onFailed(errorInfo) {
     //   console.log(errorInfo);
@@ -178,6 +189,14 @@ export default {
     },
     validatorMsg() {},
     onSubmit(values) {
+      // 密码登录
+      let params = {
+        macNo: "1111122323",
+        userNo: this.mobile,
+        userPWD: this.password
+      };
+      console.log(login(params))
+      // this.$store.dispatch("user/login", params);
       console.log("submit", values);
     },
     eyeClick() {

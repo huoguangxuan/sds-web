@@ -1,4 +1,4 @@
-import axios from "@/utils/request";
+import request from "@/utils/request";
 
 const prefix = "";
 
@@ -7,8 +7,16 @@ const prefix = "";
 //     return axios.get(`${prefix}/phoenix/arctic/v1/user/${userId}`);
 //   }
 // };
-export default {
-  getCode(mobile) {
-    return axios.get(`${prefix}/getCode/${mobile}`);
-  }
-};
+export function login(params) {
+  return request({
+    url: `${prefix}/login`,
+    method: "post",
+    params
+  });
+}
+export function getCode(mobile) {
+  return request({
+    url: `${prefix}/getCode/${mobile}`,
+    method: "get"
+  });
+}

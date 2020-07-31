@@ -68,6 +68,14 @@
               <span>证件号码</span>
               <span>342623**********92</span>
             </div>
+            <div class="body_span">
+              <span>客户经理</span>
+              <span>无</span>
+            </div>
+            <div class="body_span">
+              <span>付费方式</span>
+              <span>现金</span>
+            </div>
           </div>
         </div>
       </div>
@@ -83,15 +91,7 @@ export default {
       flag: true,
       startNum: 3
     };
-  },
-  computed: {
-    // setStart() {
-    //   let startNum = this.startNum;
-    //   return
-    // }
-  },
-  created: {},
-  methods: {}
+  }
 };
 </script>
 

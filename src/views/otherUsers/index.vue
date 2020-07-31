@@ -35,10 +35,12 @@ export default {
     return {
       size: 150,
       optionA: {
-        value: "https://m.10010.com/queen/CB-currency-template/homepage.html?salesId=98X1909201558234364&channel=06-0324-1767-6763"
+        value:
+          "https://m.10010.com/queen/CB-currency-template/homepage.html?salesId=98X1909201558234364&channel=06-0324-1767-6763"
       },
       optionB: {
-        value: "https://m.10010.com/queen/CB-currency-template/homepage.html?salesId=98X2004171556599537&channel=06-0324-1767-6763"
+        value:
+          "https://m.10010.com/queen/CB-currency-template/homepage.html?salesId=98X2004171556599537&channel=06-0324-1767-6763"
       }
     };
   }
