@@ -7,7 +7,7 @@
         <qrcode
           :value="optionA.value"
           :size="size"
-          level="H"
+          level="L"
           renderAs="svg"
         ></qrcode>
         <p>软件A名称</p>
@@ -17,7 +17,7 @@
         <qrcode
           :value="optionB.value"
           :size="size"
-          level="H"
+          level="L"
           renderAs="svg"
         ></qrcode>
         <p>软件B名称</p>
@@ -35,10 +35,10 @@ export default {
     return {
       size: 150,
       optionA: {
-        value: "https://www.baidu.com"
+        value: "https://m.10010.com/queen/CB-currency-template/homepage.html?salesId=98X1909201558234364&channel=06-0324-1767-6763"
       },
       optionB: {
-        value: "http://www.10010.com/"
+        value: "https://m.10010.com/queen/CB-currency-template/homepage.html?salesId=98X2004171556599537&channel=06-0324-1767-6763"
       }
     };
   }
