@@ -1,4 +1,3 @@
-import Vue from "vue";
 import { login, getInfo } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { resetRouter } from "@/router";
@@ -42,17 +41,17 @@ export default {
           password: data.password
         });
         state.commit(LOGIN, res);
-        Vue.Massage({
-          message: "登录成功",
-          position: "middle",
-          duration: 1500
-        });
-        setTimeout(() => {
-          const redirect = data.$route.query.redirect || "/";
-          data.$router.replace({
-            path: redirect
-          });
-        }, 1500);
+        // Vue.Massage({
+        //   message: "登录成功",
+        //   position: "middle",
+        //   duration: 1500
+        // });
+        // setTimeout(() => {
+        //   const redirect = data.$route.query.redirect || "/";
+        //   data.$router.replace({
+        //     path: redirect
+        //   });
+        // }, 1500);
       } catch (error) {
         console.log(error);
       }
