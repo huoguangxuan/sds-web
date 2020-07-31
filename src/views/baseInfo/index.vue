@@ -1,5 +1,5 @@
 <template>
-  <div class="pages">
+  <div class="base_info">
     <div class="main_box">
       <!-- 顶部标题 -->
       <div class="title">
@@ -96,8 +96,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.pages {
-  height: 100vh;
+.base_info {
+  height: 80vh;
   font-size: 17px;
   line-height: 25px;
   text-align: start;

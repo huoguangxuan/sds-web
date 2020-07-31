@@ -1,5 +1,5 @@
 <template>
-  <div class="otherUsers">
+  <div class="other_users">
     <!-- 内容区域 -->
     <div class="center">
       <!-- 软件A -->
@@ -50,12 +50,12 @@ export default {
   margin: 0;
   padding: 0;
 }
-.otherUsers {
+.other_users {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  height: 80vh;
   .center {
     display: flex;
     text-align: center;
