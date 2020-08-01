@@ -87,10 +87,16 @@
 export default {
   data() {
     return {
+      data: {},
       text: 30,
       flag: true,
       startNum: 3
     };
+  },
+  mounted() {
+    if (this.$store.state.user.user) {
+      this.data = JSON.parse(JSON.stringify(this.$store.state.user.user));
+    }
   }
 };
 </script>

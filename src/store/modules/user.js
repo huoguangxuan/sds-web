@@ -1,4 +1,4 @@
-import { login, getInfo } from "@/api/user";
+import { login, getInfo } from "@/api/index";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { resetRouter } from "@/router";
 // import router from '@/router'
@@ -16,9 +16,13 @@ export default {
   },
   mutations: {
     [LOGIN](state, data) {
-      let userToken = data.data;
-      state.token = userToken;
-      setToken(userToken);
+      // 把用户信息放入vuex仓库中
+      let userData = data.data;
+      state.user = userData;
+      // 放置token
+      // let userToken = data.data;
+      // state.token = userToken;
+      // setToken(userToken);
     },
 
     [SetUserData](state, userData = {}) {
@@ -34,13 +38,21 @@ export default {
     }
   },
   actions: {
-    async login(state, data) {
+    login(state, data) {
       try {
-        let res = await login({
-          phoneNumber: data.phoneNumber,
-          password: data.password
-        });
-        state.commit(LOGIN, res);
+        let params = {
+          macNo: data.macNo,
+          userNo: data.userNo,
+          userPWD: data.userPWD
+        };
+        login(params)
+          .then(res => {
+            state.commit(LOGIN, res);
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err);
+          });
         // Vue.Massage({
         //   message: "登录成功",
         //   position: "middle",
