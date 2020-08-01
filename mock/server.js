@@ -60,12 +60,30 @@ app.use("/login", function(req, res) {
     }
   });
 });
-//获取验证码
-app.use("/getCode", function(req, res) {
-  console.log(req);
+//isLogin fail
+app.use("/user/isLogin", function(req, res) {
   res.json({
-    status: 200,
-    code: "123456"
+    macNo: "1000",
+    responseCode: "50008",
+    responseMSG: "token已过期，请重新登录",
+    data: null
+  });
+});
+//isLogin 成功登录
+// app.use("/user/isLogin", function(req, res) {
+//   res.json({
+//     macNo: "1000",
+//     responseCode: "50008",
+//     responseMSG: "token已过期，请重新登录",
+//     data: null
+//   });
+// });
+//获取验证码
+app.use("/user/getSms", function(req, res) {
+  res.json({
+    responseCode: "0000",
+    responseMSG: "短信发送成功",
+    data: null
   });
 });
 app.listen("8090", () => {

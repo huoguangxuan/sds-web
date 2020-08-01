@@ -14,10 +14,7 @@ let routes = [
   {
     path: "/404",
     name: "404",
-    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue"),
-    meta: {
-      title: "404"
-    }
+    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
   },
   {
     path: "/home",
