@@ -1,17 +1,18 @@
 <template>
   <div class="flexcc flexcol login">
     <div class="flexcc flexrow" v-if="isQrcodeLogin">
-      <img src="@/assets/ss.jpg" class="sanImg" alt="" />
+      <img src="@/assets/ss.jpg" class="sanImg" alt />
       <div>
         <p class="ac scan">
-          请使用<span style="color:orange">手机营业厅app</span><br />
-          扫描二维码
+          请使用
+          <span style="color:orange">手机营业厅app</span>
+          <br />扫描二维码
         </p>
         <qrcode class="qrcode" :value="value" :size="size" level="H" />
       </div>
     </div>
     <div v-else class="flexcc flexrow" style="width:100%">
-      <van-form validate-first @submit="onSubmit" style="width:40%">
+      <van-form validate-first @submit="login" style="width:40%">
         <!-- 手机号 -->
         <van-field
           v-model="mobile"
@@ -33,7 +34,7 @@
         />
         <!-- 验证码 -->
         <van-field
-          v-if="isMessageLogin"
+          v-if="isSmsLogin"
           v-model="sms"
           clearable
           type="number"
@@ -41,7 +42,7 @@
         >
           <template #button>
             <van-button
-              v-if="isMessageLogin"
+              v-if="isSmsLogin"
               size="mini"
               :disabled="sendStatus"
               @touchstart="getSms"
@@ -59,16 +60,13 @@
             :disabled="!submitStatus"
             type="warning"
             native-type="submit"
+            >授权</van-button
           >
-            授权
-          </van-button>
         </div>
       </van-form>
     </div>
     <div class="flexcc flexrow">
-      <p class="line">
-        其他登录方式
-      </p>
+      <p class="line">其他登录方式</p>
     </div>
     <div class="logintype">
       <div
@@ -77,7 +75,7 @@
         @click="
           () => {
             isPasswordLogin = true;
-            isMessageLogin = false;
+            isSmsLogin = false;
             isQrcodeLogin = false;
             $parent.$refs['head'].title &&
               ($parent.$refs['head'].title = '密码登录');
@@ -95,7 +93,7 @@
         @click="
           () => {
             isQrcodeLogin = true;
-            isMessageLogin = false;
+            isSmsLogin = false;
             isPasswordLogin = false;
             $parent.$refs['head'].title &&
               ($parent.$refs['head'].title = '扫码登录');
@@ -109,10 +107,10 @@
       </div>
       <div
         class="item"
-        v-if="!isMessageLogin"
+        v-if="!isSmsLogin"
         @click="
           () => {
-            isMessageLogin = true;
+            isSmsLogin = true;
             isQrcodeLogin = false;
             isPasswordLogin = false;
             $parent.$refs['head'].title &&
@@ -129,6 +127,7 @@
   </div>
 </template>
 <script>
+const MD5 = require("md5");
 import { Toast } from "vant";
 import api from "@/api";
 export default {
@@ -138,7 +137,7 @@ export default {
       value: "www.baidu.com",
       size: 150,
       isPasswordLogin: false, //密码登录
-      isMessageLogin: false, //短信验证码登录
+      isSmsLogin: false, //短信验证码登录
       isQrcodeLogin: true, //二维码登录
       mobilePattern: /^1[3|4|5|7|8][0-9]{9}$/, //手机号校验
       passwordPattern: /^.\w{6,16}$/, //密码校验
@@ -192,7 +191,6 @@ export default {
         return;
       }
       this.sendStatus = true;
-      console.log(this.mobileStatus, this.sendStatus);
       api
         .getSms(this.mobile)
         .then(res => {
@@ -215,11 +213,15 @@ export default {
           Toast(`${err},请稍后重新发送验证码！`);
         });
     },
-    validatorMsg() {},
-    onSubmit() {
+    login() {
       // 密码登录
-      // let params = {};
-      // this.$store.dispatch("user/login", params);
+      const params = {
+        isSms: this.isSmsLogin,
+        mobile: this.mobile,
+        sms: this.sms,
+        password: MD5(this.password)
+      };
+      this.$store.dispatch("user/login", params);
     },
     eyeClick() {
       if (this.passwordType === "password") {

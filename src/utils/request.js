@@ -72,7 +72,7 @@ service.interceptors.response.use(
   },
   error => {
     console.log("err" + error); // for debug
-    Dialog.fail({
+    Dialog({
       message: error.message
     });
     return Promise.reject(error);
