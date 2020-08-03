@@ -14,10 +14,7 @@ let routes = [
   {
     path: "/404",
     name: "404",
-    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue"),
-    meta: {
-      title: "404"
-    }
+    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
   },
   {
     path: "/home",
@@ -33,6 +30,12 @@ let routes = [
     path: "/baseInfo",
     name: "base-info",
     component: () => import(/* webpackChunkName: "pages" */ "../views/baseInfo")
+  },
+  //用户中心
+  {
+    path: "/userInfo",
+    name: "user-info",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/userInfo")
   },
   //流量查询
   {
@@ -143,7 +146,7 @@ myRouter.beforeEach((to, from, next) => {
 });
 
 export function resetRouter() {
-  myRouter.replace("/login");
+  myRouter.replace("/");
 }
 
 export default myRouter;

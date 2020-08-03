@@ -1,18 +1,19 @@
 <template>
-  <div class="flexcc flexcol" style="height:80vh">
-    <div class="flexcc flexrow" v-if="!isQrcodeLogin">
-      <img src="@/assets/ss.jpg" class="sanImg" alt="" />
+  <div class="flexcc flexcol login">
+    <div class="flexcc flexrow" v-if="isQrcodeLogin">
+      <img src="@/assets/ss.jpg" class="sanImg" alt />
       <div>
         <p class="ac scan">
-          请使用<span style="color:orange">手机营业厅app</span><br />
-          扫描二维码
+          请使用
+          <span style="color:orange">手机营业厅app</span>
+          <br />扫描二维码
         </p>
         <qrcode class="qrcode" :value="value" :size="size" level="H" />
       </div>
     </div>
     <div v-else class="flexcc flexrow" style="width:100%">
-      <van-form validate-first @submit="onSubmit" style="width:40%">
-        <!-- 通过 pattern 进行正则校验 -->
+      <van-form validate-first @submit="login" style="width:40%">
+        <!-- 手机号 -->
         <van-field
           v-model="mobile"
           name="mobile"
@@ -20,9 +21,9 @@
           clearable
           placeholder="请输入手机号"
         />
-        <!-- 通过 validator 进行函数校验 -->
+        <!-- 密码 -->
         <van-field
-          v-if="!isPasswordLogin"
+          v-if="isPasswordLogin"
           v-model="password"
           name="password"
           :type="passwordType"
@@ -31,50 +32,53 @@
           @click-right-icon="eyeClick"
           placeholder="请输入密码"
         />
-        <!-- 通过 validator 进行异步函数校验 -->
-        <!-- <van-field
-          v-model="value3"
-          name="asyncValidator"
-          placeholder="异步函数校验"
-          :rules="[{ validator: asyncValidator, message: '请输入正确内容' }]"
-        /> -->
+        <!-- 验证码 -->
+        <van-field
+          v-if="isSmsLogin"
+          v-model="sms"
+          clearable
+          type="number"
+          placeholder="请输入短信验证码"
+        >
+          <template #button>
+            <van-button
+              v-if="isSmsLogin"
+              size="mini"
+              :disabled="sendStatus"
+              @touchstart="getSms"
+              native-type="button"
+              type="warning"
+            >
+              <span v-show="show">获取验证码</span>
+              <span v-show="!show" class="count">{{ count }}s重新发送</span>
+            </van-button>
+          </template>
+        </van-field>
         <div style="margin: 16px;">
           <van-button
-            v-if="!isPasswordLogin"
             block
             :disabled="!submitStatus"
             type="warning"
             native-type="submit"
+            >授权</van-button
           >
-            登录
-          </van-button>
-          <van-button
-            v-else
-            block
-            type="warning"
-            @click="getCode"
-            :disabled="!mobileStatus"
-            native-type="submit"
-          >
-            获取手机短信验证码
-          </van-button>
         </div>
       </van-form>
     </div>
     <div class="flexcc flexrow">
-      <p class="line">
-        其他登录方式
-      </p>
+      <p class="line">其他登录方式</p>
     </div>
     <div class="logintype">
       <div
         class="item"
-        v-if="isPasswordLogin"
+        v-if="!isPasswordLogin"
         @click="
           () => {
-            isPasswordLogin = false;
-            isMessageLogin = true;
-            isQrcodeLogin = true;
+            isPasswordLogin = true;
+            isSmsLogin = false;
+            isQrcodeLogin = false;
+            $parent.$refs['head'].title &&
+              ($parent.$refs['head'].title = '密码登录');
           }
         "
       >
@@ -85,12 +89,14 @@
       </div>
       <div
         class="item"
-        v-if="isQrcodeLogin"
+        v-if="!isQrcodeLogin"
         @click="
           () => {
-            isQrcodeLogin = false;
-            isMessageLogin = true;
-            isPasswordLogin = true;
+            isQrcodeLogin = true;
+            isSmsLogin = false;
+            isPasswordLogin = false;
+            $parent.$refs['head'].title &&
+              ($parent.$refs['head'].title = '扫码登录');
           }
         "
       >
@@ -101,12 +107,14 @@
       </div>
       <div
         class="item"
-        v-if="isMessageLogin"
+        v-if="!isSmsLogin"
         @click="
           () => {
-            isMessageLogin = false;
-            isQrcodeLogin = true;
-            isPasswordLogin = true;
+            isSmsLogin = true;
+            isQrcodeLogin = false;
+            isPasswordLogin = false;
+            $parent.$refs['head'].title &&
+              ($parent.$refs['head'].title = '短信登录');
           }
         "
       >
@@ -119,6 +127,7 @@
   </div>
 </template>
 <script>
+const MD5 = require("md5");
 import { Toast } from "vant";
 import api from "@/api";
 export default {
@@ -127,16 +136,20 @@ export default {
       user: "张三",
       value: "www.baidu.com",
       size: 150,
-      isPasswordLogin: true, //密码登录
-      isMessageLogin: true, //短信验证码登录
-      isQrcodeLogin: false, //二维码登录
+      isPasswordLogin: false, //密码登录
+      isSmsLogin: false, //短信验证码登录
+      isQrcodeLogin: true, //二维码登录
       mobilePattern: /^1[3|4|5|7|8][0-9]{9}$/, //手机号校验
       passwordPattern: /^.\w{6,16}$/, //密码校验
+      smsPattern: /^\d{6}$/,
       mobile: "",
       password: "",
-      vcode: "",
+      sms: "",
       passwordType: "password",
-      eye: "closed-eye"
+      eye: "closed-eye",
+      count: 60,
+      show: true,
+      sendStatus: false
     };
   },
   computed: {
@@ -144,49 +157,71 @@ export default {
       return this.mobilePattern.test(this.mobile);
     },
     submitStatus() {
+      if (this.isPasswordLogin) {
+        return (
+          this.mobilePattern.test(this.mobile) &&
+          this.passwordPattern.test(this.password)
+        );
+      }
       return (
         this.mobilePattern.test(this.mobile) &&
-        this.passwordPattern.test(this.password)
+        this.smsPattern.test(Number(this.sms))
       );
     }
   },
+  watch: {
+    isQrcodeLogin(newVal) {
+      if (newVal) {
+        // open
+        console.log("open");
+      } else {
+        // close
+        console.log("close");
+      }
+    }
+  },
+  created() {
+    this.$parent.$refs["head"].title &&
+      (this.$parent.$refs["head"].title = "扫码登录");
+  },
   methods: {
-    // onFailed(errorInfo) {
-    //   console.log(errorInfo);
-    // },
-    // validator(val) {
-    //   return /1\d{10}/.test(val);
-    // },
-    // 异步校验函数返回 Promise
-    // asyncValidator(val) {
-    //   return new Promise(resolve => {
-    //     Toast.loading("验证中...");
-
-    //     setTimeout(() => {
-    //       Toast.clear();
-    //       resolve(/\d{6}/.test(val));
-    //     }, 1000);
-    //   });
-    // },
-    getCode() {
+    getSms() {
+      if (!this.mobileStatus) {
+        Toast("请先输入手机号");
+        return;
+      }
+      this.sendStatus = true;
       api
-        .getCode(this.mobile)
+        .getSms(this.mobile)
         .then(res => {
-          Toast(res.code);
+          Toast(res.responseMSG);
+          //弄个60秒倒计时
+          let timer;
+          let self = this;
+          this.show = false;
+          timer = setInterval(() => {
+            self.count--;
+            if (self.count < 1) {
+              self.show = true;
+              self.sendStatus = false;
+              clearInterval(timer);
+              self.count = 60;
+            }
+          }, 1000);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          Toast(`${err},请稍后重新发送验证码！`);
+        });
     },
-    validatorMsg() {},
-    onSubmit(values) {
+    login() {
       // 密码登录
-      let params = {
-        macNo: "1111122323", // 设备号
-        userNo: this.mobile, // 用户账号
-        userPWD: this.password // 用户密码
+      const params = {
+        isSms: this.isSmsLogin,
+        mobile: this.mobile,
+        sms: this.sms,
+        password: MD5(this.password)
       };
-      // 调用vuex的方法存放用户信息
       this.$store.dispatch("user/login", params);
-      console.log("submit", values);
     },
     eyeClick() {
       if (this.passwordType === "password") {
@@ -201,6 +236,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.login {
+  height: calc(100vh - 60px);
+}
 .sanImg {
   width: 120px;
   margin: 25px;
@@ -276,7 +314,8 @@ export default {
   border-bottom: 1px solid #999;
 }
 
-/deep/ input::input-placeholder {
+/deep/ input::-webkit-input-placeholder {
   color: #999;
+  font-size: 14px;
 }
 </style>

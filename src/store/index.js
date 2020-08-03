@@ -15,7 +15,7 @@ export default new Vuex.Store({
   },
   getters: {
     userData(state) {
-      return state.user.user;
+      return state.user;
       // return getters['user/user']
     }
     // vuex 全局getters引入局部
