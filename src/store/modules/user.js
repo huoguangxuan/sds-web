@@ -19,10 +19,10 @@ export default {
       // 把用户信息放入vuex仓库中
       let userData = data.data;
       state.user = userData;
-      // 放置token
-      // let userToken = data.data;
-      // state.token = userToken;
-      // setToken(userToken);
+      // token存放
+      let userToken = data.data.token || null;
+      state.token = userToken;
+      setToken(userToken);
     },
 
     [SetUserData](state, userData = {}) {

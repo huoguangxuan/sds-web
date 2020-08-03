@@ -180,10 +180,11 @@ export default {
     onSubmit(values) {
       // 密码登录
       let params = {
-        macNo: "1111122323",
-        userNo: this.mobile,
-        userPWD: this.password
+        macNo: "1111122323", // 设备号
+        userNo: this.mobile, // 用户账号
+        userPWD: this.password // 用户密码
       };
+      // 调用vuex的方法存放用户信息
       this.$store.dispatch("user/login", params);
       console.log("submit", values);
     },
