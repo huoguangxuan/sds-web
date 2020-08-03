@@ -5,7 +5,6 @@ import vant from "@/components/vant";
 import store from "./store";
 import "@/utils/permission";
 import QrcodeVue from "qrcode.vue";
-
 // 引入全局重置样式
 import "./assets/base.css";
 Vue.use(vant);

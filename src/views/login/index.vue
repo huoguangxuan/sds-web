@@ -127,7 +127,6 @@
   </div>
 </template>
 <script>
-const MD5 = require("md5");
 import { Toast } from "vant";
 import api from "@/api";
 export default {
@@ -218,8 +217,8 @@ export default {
       const params = {
         isSms: this.isSmsLogin,
         mobile: this.mobile,
-        sms: this.sms,
-        password: MD5(this.password)
+        sms: this.sms
+        // password: MD5(this.password)
       };
       this.$store.dispatch("user/login", params);
     },
