@@ -13,6 +13,7 @@ const whiteList = [
   "/recharge",
   "/amountSelection",
   "/recharging",
+  "/rechargeOk",
   "/baseInfo"
 ]; // 白名单列表
 router.beforeEach(async (to, from, next) => {
