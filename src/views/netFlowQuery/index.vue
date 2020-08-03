@@ -9,7 +9,7 @@
         </li>
         <li>
           <span class="txtmax">已用流量</span
-          ><span class="txtmin">xxGB\MB</span>
+          ><span class="txtmin">{{ this.voiceadd }}</span>
         </li>
         <van-progress :percentage="80" stroke-width="20" color="#41403E" />
         <li>
@@ -38,12 +38,27 @@
 </template>
 
 <script>
+import api from "@/api";
 export default {
   data() {
     return {
       value: "www.baidu.com",
-      size: 100
+      size: 100,
+      voiceadd: "",
+      flowadd: ""
     };
+  },
+  mounted() {
+    this.inquire();
+  },
+  methods: {
+    //查询请求接口
+    inquire() {
+      api.getinquire().then(res => {
+        console.log(res);
+        //this.voiceadd = res.data.addupitemname.flow;
+      });
+    }
   }
 };
 </script>
@@ -56,7 +71,7 @@ export default {
   height: 100vh;
 }
 .content {
-  height: 50vh;
+  height: 40vh;
   padding: 0 25px;
   ul li {
     list-style: none;
@@ -73,14 +88,18 @@ export default {
   }
 }
 .bottom {
-  height: 50vh;
-  padding: 25px;
+  height: 60vh;
+  padding: 0 25px;
   display: flex;
   flex-direction: row-reverse;
   .qrcode {
     width: 190px;
     height: 170px;
     text-align: center;
+    dl {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

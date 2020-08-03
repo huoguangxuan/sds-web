@@ -13,7 +13,8 @@ const whiteList = [
   "/recharge",
   "/amountSelection",
   "/recharging",
-  "/baseInfo"
+  "/baseInfo",
+  "/netFlow"
 ]; // 白名单列表
 router.beforeEach(async (to, from, next) => {
   // 设置页面标题

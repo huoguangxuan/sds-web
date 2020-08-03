@@ -10,5 +10,8 @@ const prefix = "";
 export default {
   getCode(mobile) {
     return axios.get(`${prefix}/getCode/${mobile}`);
+  },
+  getinquire() {
+    return axios.get(`/inquire`);
   }
 };

@@ -53,3 +53,33 @@ app.listen("8090", () => {
 });
 
 // nodemon babel-node server.js
+
+//查询
+app.use("/inquire", function(req, res) {
+  res.json(
+    Mock.mock({
+      code: 200,
+      data: {
+        mobile: "20元",
+        addupitemname: [
+          {
+            flow: [
+              {
+                waeper: "10GB",
+                banval: "5GB",
+                wuval: "0"
+              }
+            ],
+            voice: [
+              {
+                addupupper: "100分钟",
+                xcanusevalue: "50分钟",
+                xexceedvalue: "0"
+              }
+            ]
+          }
+        ]
+      }
+    })
+  );
+});
