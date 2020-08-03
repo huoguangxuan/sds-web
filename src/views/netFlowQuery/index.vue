@@ -55,8 +55,8 @@ export default {
     //查询请求接口
     inquire() {
       api.getinquire().then(res => {
-        console.log(res);
-        //this.voiceadd = res.data.addupitemname.flow;
+        console.log(res.data.addupitemname);
+        //this.voiceadd = res.data.addupitemname.flow.waeper;
       });
     }
   }
