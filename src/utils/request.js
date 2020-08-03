@@ -30,8 +30,22 @@ service.interceptors.request.use(
   }
 );
 
-// response interceptor
 service.interceptors.response.use(
+  /**
+   * 响应拦截器
+   * 剥离无效数据，响应成功直接返回data
+   */
+  // res => {
+  //   try {
+  //     return res.data;
+  //   } catch (e) {
+  //     return res;
+  //   }
+  // },
+  // err => {
+  //   return Promise.reject(err);
+  // }
+
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
@@ -42,6 +56,7 @@ service.interceptors.response.use(
    * Here is just an example
    * You can also judge the status by HTTP Status Code
    */
+
   response => {
     let res = response.data;
     // if the custom code is not 20000, it is judged as an error.

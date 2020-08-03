@@ -18,5 +18,10 @@ export default {
   },
   isLogin(params) {
     return axios.get(`${prefix}/user/isLogin`, params);
+  getCode(mobile) {
+    return axios.get(`${prefix}/getCode/${mobile}`);
+  },
+  recharge(mobile) {
+    return axios.get(`${prefix}/recharge/${mobile}`);
   }
 };
