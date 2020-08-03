@@ -32,6 +32,18 @@ app.use("/list", function(req, res) {
   );
 });
 
+// 话费充值
+app.use("/recharge", (req, res) => {
+  console.log(req);
+  res.json({
+    responseCode: "0000",
+    data: {
+      mobile: "21321312",
+      chargeAmount: "212"
+    }
+  });
+});
+
 //login
 app.use("/login", function(req, res) {
   console.log(req.params.body);

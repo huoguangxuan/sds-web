@@ -14,13 +14,38 @@
 </template>
 
 <script>
+import api from "@/api";
 export default {
   data() {
     return {
-      phoneNumber: 18612341234
+      phoneNumber: null
     };
+  },
+  mounted() {
+    this.recharge1();
+  },
+  methods: {
+    async recharge1() {
+      let rechargeConfig = {
+        mobile: this.phoneNumber
+      };
+      let res = await api.recharge(rechargeConfig);
+      console.log(res);
+      // if (res.responseCode === "0000") {
+      // } else {
+      //   alert("❌不行，真的不行了");
+      // }
+    }
   }
 };
+// api
+//   .recharge(rechargeConfig)
+//   .then(res => {
+//     console.log(res);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 </script>
 
 <style lang="less" scoped>

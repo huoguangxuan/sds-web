@@ -15,7 +15,7 @@ export default {
     return {
       phoneNumber: 13930012345,
       PhoneBill: 500,
-      value: "www.baidu.com"
+      value: "https://www.baidu.com"
       // size: 200
     };
   }
