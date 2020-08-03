@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 公共头部 -->
-    <public-heade></public-heade>
+    <public-head ref="head"></public-head>
     <!-- 内容区域 -->
     <div class="contentArea">
       <router-view></router-view>
@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import PublicHeade from "./components/publichead";
+import PublicHead from "./components/publichead";
 export default {
   components: {
-    PublicHeade
+    PublicHead
   }
 };
 </script>

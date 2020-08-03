@@ -36,7 +36,7 @@ router.beforeEach(async (to, from, next) => {
       } else {
         try {
           // get user info
-          await store.dispatch("user/getInfo");
+          // await store.dispatch("user/getInfo");
           next();
         } catch (error) {
           // 清除用户信息，退出登录，跳转登录页

@@ -14,7 +14,7 @@ export default [
     path: "/login",
     name: "login",
     meta: {
-      title: "请扫登录"
+      title: "扫码登录"
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

@@ -1,5 +1,5 @@
 <template>
-  <div class="pages">
+  <div class="base_info">
     <div class="main_box">
       <!-- 顶部标题 -->
       <div class="title">
@@ -68,6 +68,14 @@
               <span>证件号码</span>
               <span>342623**********92</span>
             </div>
+            <div class="body_span">
+              <span>客户经理</span>
+              <span>无</span>
+            </div>
+            <div class="body_span">
+              <span>付费方式</span>
+              <span>现金</span>
+            </div>
           </div>
         </div>
       </div>
@@ -79,25 +87,23 @@
 export default {
   data() {
     return {
+      data: {},
       text: 30,
       flag: true,
       startNum: 3
     };
   },
-  computed: {
-    // setStart() {
-    //   let startNum = this.startNum;
-    //   return
-    // }
-  },
-  created: {},
-  methods: {}
+  mounted() {
+    if (this.$store.state.user.user) {
+      this.data = JSON.parse(JSON.stringify(this.$store.state.user.user));
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
-.pages {
-  height: 100vh;
+.base_info {
+  height: 80vh;
   font-size: 17px;
   line-height: 25px;
   text-align: start;
