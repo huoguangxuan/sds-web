@@ -30,11 +30,11 @@ export default {
         mobile: this.phoneNumber
       };
       let res = await api.recharge(rechargeConfig);
-      console.log(res);
-      // if (res.responseCode === "0000") {
-      // } else {
-      //   alert("❌不行，真的不行了");
-      // }
+      if (res.responseCode === "00001") {
+        console.log(res);
+      } else {
+        alert("❌不行，真的不行了");
+      }
     }
   }
 };
