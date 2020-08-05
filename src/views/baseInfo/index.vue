@@ -7,30 +7,13 @@
           <div>
             当前等级:
             <span>
-              {{ custLvl }}忠诚用户
-              <van-icon name="star" v-for="item in data.cust_lvl * 1 || 1" :key="item" />
+              一星忠诚用户
+              <van-icon name="star" v-for="item in startNum" :key="item" />
             </span>
           </div>
-          <div>尊敬的{{ custLvl }}忠诚用户，您拥有的特权有，生日问候。</div>
+          <div>尊敬的一星忠诚用户，您拥有的特权有，生日问候。</div>
         </div>
       </div>
-      <!--      token: "i8as89a9200z99s99asads9xajkkflla2ll"-->
-      <!--      package_id: "1000"-->
-      <!--      package_name: "畅爽全国冰激凌套餐398元档"-->
-      <!--      product_id: "15534466441"-->
-      <!--      product_type: "无"-->
-      <!--      status: "开通"-->
-      <!--      cust_name: "刘备"-->
-      <!--      cert_type: "18位身份证"-->
-      <!--      cert_num: "140203199711250867"-->
-      <!--      open_date: "20200730110222"-->
-      <!--      user_head_img: "http://temp.im/300x200"-->
-      <!--      cust_lvl: "3"-->
-      <!--      manager_name: "曹操"-->
-      <!--      manager_concact: "15523632635"-->
-      <!--      land_lvl: "5"-->
-      <!--      user_status: "无"-->
-      <!--      pay_type: "1"-->
       <!-- 下方内容 -->
       <div class="content">
         <!-- 号码信息内容区域 -->
@@ -41,11 +24,11 @@
           <div class="left_body">
             <div class="body_span">
               <span>当前状态</span>
-              <span>{{ data.status }}</span>
+              <span>开通</span>
             </div>
             <div class="body_span">
               <span>号码类型</span>
-              <span>{{ data.user_status }}</span>
+              <span>无</span>
             </div>
             <div class="body_span">
               <span>入网时间</span>
@@ -53,7 +36,7 @@
             </div>
             <div class="body_span">
               <span>通话级别</span>
-              <span>{{ landLvl }}</span>
+              <span>国际通话</span>
             </div>
           </div>
         </div>
@@ -65,33 +48,33 @@
           <div class="right_body">
             <div class="body_span">
               <span>用户姓名</span>
-              <span>{{ data.cust_name }}</span>
+              <span>刘备</span>
             </div>
             <div class="body_span">
               <span>当前套餐</span>
-              <span>{{ data.package_name }}</span>
+              <span>畅爽全国冰激凌套餐398元档</span>
             </div>
             <div class="body_span">
               <span>用户级别</span>
               <span>
-                <van-icon name="star" v-for="item in data.cust_lvl * 1 || 1" :key="item" />
+                <van-icon name="star" v-for="item in startNum" :key="item" />
               </span>
             </div>
             <div class="body_span">
               <span>证件类型</span>
-              <span>{{ data.cert_type }}</span>
+              <span>18位身份证</span>
             </div>
             <div class="body_span">
               <span>证件号码</span>
-              <span>{{ hidden(data.cert_num, 6, 2) }}</span>
+              <span>342623**********92</span>
             </div>
             <div class="body_span">
               <span>客户经理</span>
-              <span>{{ data.manager_name }}</span>
+              <span>无</span>
             </div>
             <div class="body_span">
               <span>付费方式</span>
-              <span>{{ payType }}</span>
+              <span>现金</span>
             </div>
           </div>
         </div>
@@ -106,84 +89,13 @@ export default {
     return {
       data: {},
       text: 30,
-      flag: true
+      flag: true,
+      startNum: 3
     };
-  },
-  computed: {
-    // 用户星级
-    custLvl: function() {
-      if (this.data.cust_lvl) {
-        switch (this.data.cust_lvl) {
-          case "1":
-            return "一星";
-          case "2":
-            return "二星";
-          case "3":
-            return "三星";
-          case "4":
-            return "四星";
-          case "5":
-            return "五星";
-          default:
-            return "null";
-        }
-      } else {
-        return "null";
-      }
-    },
-    // 通话级别
-    landLvl: function() {
-      if (this.data.land_lvl) {
-        switch (this.data.land_lvl) {
-          case "1":
-            return "本地通话";
-          case "2":
-            return "省内通话";
-          case "3":
-            return "国内通话";
-          case "4":
-            return "港澳台通话";
-          case "5":
-            return "国际通话";
-          case "6":
-            return "其他";
-          default:
-            return "其他";
-        }
-      } else {
-        return "其他";
-      }
-    },
-    // 支付方式
-    payType: function() {
-      if (this.data.pay_type) {
-        switch (this.data.pay_type) {
-          case "1":
-            return "预付费";
-          case "2":
-            return "后付费";
-          default:
-            return "其他";
-        }
-      } else {
-        return "其他";
-      }
-    }
   },
   mounted() {
     if (this.$store.state.user.user) {
       this.data = JSON.parse(JSON.stringify(this.$store.state.user.user));
-    }
-  },
-  methods: {
-    // 身份证号处理  str：要进行隐藏的变量  frontLen: 前面需要保留几位    endLen: 后面需要保留几位
-    hidden: function(certNum = "", frontLen, endLen) {
-      let len = certNum.length - frontLen - endLen;
-      let xing = "";
-      for (let i = 0; i < len; i++) {
-        xing += "*";
-      }
-      return certNum.slice(0, frontLen) + xing + certNum.slice(certNum.length - endLen);
     }
   }
 };

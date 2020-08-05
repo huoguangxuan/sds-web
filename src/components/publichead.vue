@@ -25,12 +25,12 @@ export default {
       title: this.$route.meta.title ? this.$route.meta.title : "联通营业厅"
     };
   },
-  computed: {
-    // // 判断路由元信息
-    // title: function() {
-    //   return this.$route.meta.title ? this.$route.meta.title : "联通营业厅";
-    // }
-  },
+  // computed: {
+  //   // 判断路由元信息
+  //   title: function() {
+  //     return this.$route.meta.title ? this.$route.meta.title : "联通营业厅";
+  //   }
+  // },
   methods: {
     // 返回上一页
     backToPrevious() {
