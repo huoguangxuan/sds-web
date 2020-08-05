@@ -138,15 +138,15 @@ myRouter.beforeEach((to, from, next) => {
         parseInt(toIndex, 10) > parseInt(fromIndex, 10) ||
         (toIndex === "0" && fromIndex === "0")
       ) {
-        store.commit("updateDirection", "van-slide-right");
+        store.commit("updateDirection", "forward");
       } else {
-        store.commit("updateDirection", "van-slide-left");
+        store.commit("updateDirection", "back");
       }
     } else {
       ++historyCount;
       history.setItem("count", historyCount);
       to.path !== "/" && history.setItem(to.path, historyCount);
-      store.commit("updateDirection", "van-slide-right");
+      store.commit("updateDirection", "forward");
     }
   }
   next();
