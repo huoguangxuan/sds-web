@@ -11,7 +11,8 @@ files.keys().forEach(key => {
 export default new Vuex.Store({
   plugins: [createLoadingPlugin()],
   state: {
-    direction: "forward" // 页面切换方向
+    direction: "van-slide-right" // 页面切换方向
+    // direction: "van-slide-left" // 页面切换方向
   },
   getters: {
     userData(state) {
