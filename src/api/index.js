@@ -21,5 +21,10 @@ export default {
   },
   getinquire() {
     return axios.get(`/inquire`);
+  getCode(mobile) {
+    return axios.get(`${prefix}/getCode/${mobile}`);
+  },
+  recharge(mobile) {
+    return axios.get(`${prefix}/recharge/${mobile}`);
   }
 };

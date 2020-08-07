@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import vant from "@/components/vant";
 import store from "./store";
-import "@/utils/permission";
+// import "@/utils/permission";
 import QrcodeVue from "qrcode.vue";
 
 // 引入全局重置样式
