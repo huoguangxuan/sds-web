@@ -1,138 +1,82 @@
 <template>
   <div class="flexcc flexcol login">
-    <div class="flexcc flexrow" v-if="isQrcodeLogin">
-      <img src="@/assets/ss.jpg" class="sanImg" alt />
-      <div>
-        <p class="ac scan">
-          请使用
-          <span style="color:orange">手机营业厅app</span>
-          <br />扫描二维码
-        </p>
+    <van-tabs v-model="active">
+      <van-tab title="扫码登录"> </van-tab>
+      <van-tab title="短信登录"> </van-tab>
+      <van-tab title="密码登录"> </van-tab>
+    </van-tabs>
+    <div class="content panel">
+      <div v-if="active === 0">
         <qrcode class="qrcode" :value="value" :size="size" level="H" />
+        <p class="ac scan ">
+          请使用
+          <span style="color:orange">手机营业厅app</span>扫描二维码
+        </p>
       </div>
-    </div>
-    <div v-else class="flexcc flexrow" style="width:100%">
-      <van-form validate-first @submit="login" style="width:40%">
-        <!-- 手机号 -->
-        <van-field
-          v-model="mobile"
-          name="mobile"
-          type="tel"
-          clearable
-          placeholder="请输入手机号"
-        />
-        <!-- 密码 -->
-        <van-field
-          v-if="isPasswordLogin"
-          v-model="password"
-          name="password"
-          :type="passwordType"
-          clearable
-          :right-icon="eye"
-          @click-right-icon="eyeClick"
-          placeholder="请输入密码"
-        />
-        <!-- 验证码 -->
-        <van-field
-          v-if="isSmsLogin"
-          v-model="sms"
-          clearable
-          type="number"
-          placeholder="请输入短信验证码"
-        >
-          <template #button>
-            <van-button
-              v-if="isSmsLogin"
-              size="mini"
-              :disabled="sendStatus"
-              @touchstart="getSms"
-              native-type="button"
-              type="warning"
-            >
-              <span v-show="show">获取验证码</span>
-              <span v-show="!show" class="count">{{ count }}s重新发送</span>
-            </van-button>
-          </template>
-        </van-field>
-        <div style="margin: 16px;">
-          <van-button
-            block
-            :disabled="!submitStatus"
-            type="warning"
-            native-type="submit"
-            >授权</van-button
+      <div v-else class="flexcc flexrow">
+        <van-form validate-first @submit="login" style="width:40%">
+          <!-- 手机号 -->
+          <van-field
+            v-model="mobile"
+            name="mobile"
+            type="tel"
+            clearable
+            placeholder="请输入手机号"
+          />
+          <!-- 密码 -->
+          <van-field
+            v-if="active === 1"
+            v-model="password"
+            name="password"
+            :type="passwordType"
+            clearable
+            :right-icon="eye"
+            @click-right-icon="eyeClick"
+            placeholder="请输入密码"
+          />
+          <!-- 验证码 -->
+          <van-field
+            v-if="isSmsLogin"
+            v-model="sms"
+            clearable
+            type="number"
+            placeholder="请输入短信验证码"
           >
-        </div>
-      </van-form>
-    </div>
-    <div class="flexcc flexrow">
-      <p class="line">其他登录方式</p>
-    </div>
-    <div class="logintype">
-      <div
-        class="item"
-        v-if="!isPasswordLogin"
-        @click="
-          () => {
-            isPasswordLogin = true;
-            isSmsLogin = false;
-            isQrcodeLogin = false;
-            $parent.$refs['head'].title &&
-              ($parent.$refs['head'].title = '密码登录');
-          }
-        "
-      >
-        <div class="circle">
-          <van-icon name="lock" class="lock" />
-        </div>
-        密码登录
-      </div>
-      <div
-        class="item"
-        v-if="!isQrcodeLogin"
-        @click="
-          () => {
-            isQrcodeLogin = true;
-            isSmsLogin = false;
-            isPasswordLogin = false;
-            $parent.$refs['head'].title &&
-              ($parent.$refs['head'].title = '扫码登录');
-          }
-        "
-      >
-        <div class="circle">
-          <van-icon name="qr" class="qr" />
-        </div>
-        扫码登录
-      </div>
-      <div
-        class="item"
-        v-if="!isSmsLogin"
-        @click="
-          () => {
-            isSmsLogin = true;
-            isQrcodeLogin = false;
-            isPasswordLogin = false;
-            $parent.$refs['head'].title &&
-              ($parent.$refs['head'].title = '短信登录');
-          }
-        "
-      >
-        <div class="circle">
-          <van-icon name="chat" class="chat" />
-        </div>
-        短信登录
+            <template #button>
+              <van-button
+                v-if="isSmsLogin"
+                size="mini"
+                :disabled="sendStatus"
+                @touchstart="getSms"
+                native-type="button"
+                type="warning"
+              >
+                <span v-show="show">获取验证码</span>
+                <span v-show="!show" class="count">{{ count }}s重新发送</span>
+              </van-button>
+            </template>
+          </van-field>
+          <div style="margin: 16px;">
+            <van-button
+              block
+              :disabled="!submitStatus"
+              type="warning"
+              native-type="submit"
+              >授权</van-button
+            >
+          </div>
+        </van-form>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Toast } from "vant";
+import { Toast, Tab, Tabs } from "vant";
 import api from "@/api";
 export default {
   data: function() {
     return {
-      user: "张三",
+      active: 0,
       value: "www.baidu.com",
       size: 150,
       isPasswordLogin: false, //密码登录
@@ -150,6 +94,10 @@ export default {
       show: true,
       sendStatus: false
     };
+  },
+  components: {
+    [Tab.name]: Tab,
+    [Tabs.name]: Tabs
   },
   computed: {
     mobileStatus() {
@@ -238,10 +186,6 @@ export default {
 .login {
   height: calc(100vh - 60px);
 }
-.sanImg {
-  width: 120px;
-  margin: 25px;
-}
 .scan {
   font-size: 20px;
   line-height: 30px;
@@ -256,59 +200,6 @@ export default {
 
   margin: 25px;
 }
-.logintype {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  .item {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100px;
-    font-size: 14px;
-    line-height: 30px;
-  }
-}
-.line {
-  position: relative;
-  font-size: 16px;
-  &::before {
-    content: "";
-    border-bottom: 1px solid #999;
-    width: 100px;
-    position: absolute;
-    left: 125px;
-    top: 12px;
-    display: block;
-  }
-  &::after {
-    content: "";
-    border-bottom: 1px solid #999;
-    width: 100px;
-    position: relative;
-    right: 130px;
-    top: -11px;
-    display: block;
-  }
-}
-.circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  border: 1px solid orange;
-  text-align: center;
-  .lock,
-  .chat,
-  .qr {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px;
-    color: orange;
-  }
-}
 /deep/ .van-cell::after {
   border-bottom: 1px solid #999;
 }
@@ -316,5 +207,22 @@ export default {
 /deep/ input::-webkit-input-placeholder {
   color: #999;
   font-size: 14px;
+}
+/deep/.van-tab {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px;
+}
+/deep/ .van-tabs__nav {
+  background: transparent;
+}
+.content {
+  height: 40vh;
+  width: 60vw;
+  margin-top: 30px;
+}
+/deep/ .van-tabs__line {
+  height: 5px;
+  bottom: 5px;
 }
 </style>

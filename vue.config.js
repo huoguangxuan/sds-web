@@ -15,6 +15,13 @@ module.exports = {
     }
   },
   devServer: {
-    open: true
+    open: true,
+    proxy: {
+      "/sds-front": {
+        // 这个是你要替换的位置
+        target: "http://172.27.68.215:12001/", //这个是被替换的目标地址
+        secure: true //接受对方是https的接口
+      }
+    }
   }
 };

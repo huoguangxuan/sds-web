@@ -17,4 +17,8 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+#app {
+  background: #f7f8f9;
+}
+</style>
