@@ -4,11 +4,10 @@ module.exports = {
     [
       "import",
       {
-        libraryName: "vant",
-        libraryDirectory: "es",
-        style: true
+        libraryName: "woui-mobile",
+        libraryDirectory: "es"
       },
-      "vant"
+      "woui-mobile"
     ]
   ]
 };
