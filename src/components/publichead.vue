@@ -1,5 +1,5 @@
 <template>
-  <div class="publichead" v-if="$route.path !== '/'">
+  <div class="publichead">
     <img
       v-if="$route.path !== '/login'"
       @click="backToPrevious()"
@@ -24,6 +24,9 @@ export default {
     return {
       title: this.$route.meta.title ? this.$route.meta.title : "联通营业厅"
     };
+  },
+  mounted() {
+    console.log(this.$route);
   },
   // computed: {
   //   // 判断路由元信息

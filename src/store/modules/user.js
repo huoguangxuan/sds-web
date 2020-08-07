@@ -15,7 +15,11 @@ export default {
   },
   mutations: {
     [LOGIN](state, data) {
-      let userToken = data.token;
+      // 把用户信息放入vuex仓库中
+      let userData = data.data;
+      state.user = userData;
+      // token存放
+      let userToken = data.data.token || null;
       state.token = userToken;
       setToken(userToken);
     },

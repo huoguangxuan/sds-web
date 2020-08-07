@@ -1,10 +1,6 @@
 <template>
   <div class="flexcc flexcol login">
-    <van-tabs v-model="active">
-      <van-tab title="扫码登录"> </van-tab>
-      <van-tab title="短信登录"> </van-tab>
-      <van-tab title="密码登录"> </van-tab>
-    </van-tabs>
+    <wo-tabs v-model="active" :activeIndex="active" :data="tabs"> </wo-tabs>
     <div class="content panel">
       <div v-if="active === 0">
         <qrcode class="qrcode" :value="value" :size="size" level="H" />
@@ -14,9 +10,9 @@
         </p>
       </div>
       <div v-else class="flexcc flexrow">
-        <van-form validate-first @submit="login" style="width:40%">
+        <wo-form validate-first @submit="login" style="width:40%">
           <!-- 手机号 -->
-          <van-field
+          <wo-field
             v-model="mobile"
             name="mobile"
             type="tel"
@@ -24,7 +20,7 @@
             placeholder="请输入手机号"
           />
           <!-- 密码 -->
-          <van-field
+          <wo-field
             v-if="active === 1"
             v-model="password"
             name="password"
@@ -35,7 +31,7 @@
             placeholder="请输入密码"
           />
           <!-- 验证码 -->
-          <van-field
+          <wo-field
             v-if="isSmsLogin"
             v-model="sms"
             clearable
@@ -43,7 +39,7 @@
             placeholder="请输入短信验证码"
           >
             <template #button>
-              <van-button
+              <wo-button
                 v-if="isSmsLogin"
                 size="mini"
                 :disabled="sendStatus"
@@ -53,29 +49,43 @@
               >
                 <span v-show="show">获取验证码</span>
                 <span v-show="!show" class="count">{{ count }}s重新发送</span>
-              </van-button>
+              </wo-button>
             </template>
-          </van-field>
+          </wo-field>
           <div style="margin: 16px;">
-            <van-button
+            <wo-button
               block
               :disabled="!submitStatus"
               type="warning"
               native-type="submit"
-              >授权</van-button
+              >授权</wo-button
             >
           </div>
-        </van-form>
+        </wo-form>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Toast, Tab, Tabs } from "vant";
+import { Toast, Tabs } from "woui-mobile";
 import api from "@/api";
 export default {
   data: function() {
     return {
+      tabs: [
+        {
+          title: "扫码登录",
+          content: ""
+        },
+        {
+          title: "密码登录",
+          content: ""
+        },
+        {
+          title: "短信登录",
+          content: ""
+        }
+      ],
       active: 0,
       value: "www.baidu.com",
       size: 150,
@@ -96,7 +106,6 @@ export default {
     };
   },
   components: {
-    [Tab.name]: Tab,
     [Tabs.name]: Tabs
   },
   computed: {
@@ -200,7 +209,7 @@ export default {
 
   margin: 25px;
 }
-/deep/ .van-cell::after {
+/deep/ .wo-cell::after {
   border-bottom: 1px solid #999;
 }
 
@@ -208,12 +217,12 @@ export default {
   color: #999;
   font-size: 14px;
 }
-/deep/.van-tab {
+/deep/.wo-tab {
   font-size: 24px;
   font-weight: bold;
   margin: 20px;
 }
-/deep/ .van-tabs__nav {
+/deep/ .wo-tabs__nav {
   background: transparent;
 }
 .content {
@@ -221,7 +230,7 @@ export default {
   width: 60vw;
   margin-top: 30px;
 }
-/deep/ .van-tabs__line {
+/deep/ .wo-tabs__line {
   height: 5px;
   bottom: 5px;
 }

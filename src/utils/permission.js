@@ -7,12 +7,14 @@ import getPageTitle from "@/utils/get-page-title";
 const whiteList = [
   "/login",
   "/",
+  "/home",
   "/chargeQuery",
   "/otherUsers",
   "/404",
   "/recharge",
   "/amountSelection",
   "/recharging",
+  "/rechargeOk",
   "/baseInfo"
 ]; // 白名单列表
 router.beforeEach(async (to, from, next) => {

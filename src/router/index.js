@@ -22,7 +22,10 @@ let routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "pages" */ "../views/home")
+    component: () => import(/* webpackChunkName: "pages" */ "../views/home"),
+    meta: {
+      title: "home"
+    }
   },
 
   //基本信息
@@ -82,6 +85,13 @@ let routes = [
     name: "recharging",
     component: () =>
       import(/* webpackChunkName: "pages" */ "../views/recharge/recharging")
+  },
+  // 充值结束
+  {
+    path: "/rechargeOk",
+    name: "rechargeOk",
+    component: () =>
+      import(/* webpackChunkName: "pages" */ "../views/recharge/rechargeOk")
   }
 ];
 
