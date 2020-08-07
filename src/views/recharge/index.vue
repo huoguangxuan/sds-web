@@ -9,6 +9,7 @@
         >”。
       </p>
       <p>如果不是，请您说出需要充值的手机号码。</p>
+      <wo-button>默认按钮</wo-button>
     </div>
   </div>
 </template>
