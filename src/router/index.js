@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Welcome from "../views/welcome";
 import store from "../store";
 
+
 Vue.use(VueRouter);
 
 let routes = [
@@ -15,6 +16,12 @@ let routes = [
     path: "/404",
     name: "404",
     component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
+  },
+  //欢迎使用联通
+  {
+    path: "/GoTo",
+    name: "GoTo",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/GoTo")
   },
   {
     path: "/home",
