@@ -15,19 +15,26 @@
       @click="() => $router.push('/login')"
       >前往登录</van-button
     >
+    {{ aa }}
+    <wo-dialog title="标题" :content="aa" v-model="demo1"> </wo-dialog>
   </div>
 </template>
 <script>
-// import { Dialog } from "vant";
 import { mapState } from "vuex"; // createNamespacedHelpers
+import { Dialog, Toast } from "woui-mobile";
 export default {
   data: function() {
     return {
       value: "www.baidu.com",
       size: 150,
       logoSrc: require("@/assets/logo.png"),
-      show: false
+      show: false,
+      demo1: true,
+      aa: "123"
     };
+  },
+  components: {
+    [Dialog.name]: Dialog
   },
   computed: {
     ...mapState({
@@ -36,6 +43,10 @@ export default {
   },
   created() {
     this.getUserInfo();
+    window.dialog = function(a) {
+      Toast.info(a, "", 3000, "center", true);
+    };
+    // android && android.setMessage && android.setMessage();
   },
   methods: {
     getUserInfo() {
@@ -48,9 +59,13 @@ export default {
         service_id: "TestReq",
         sign: "string"
       };
-      this.$store.dispatch("user/isLogin", params).then(() => {
-        console.log(this.user);
-      });
+      // this.$store.dispatch("user/isLogin", params).then(() => {
+      //   console.log(this.user);
+      // });
+    },
+    alertInfo(a) {
+      this.aa = a;
+      Toast.info(a, "", 3000, "center", true);
     }
   }
 };

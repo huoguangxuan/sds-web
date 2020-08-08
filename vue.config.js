@@ -1,7 +1,7 @@
 const path = require("path");
 module.exports = {
   lintOnSave: true,
-  pubicPath: "./",
+  publicPath: "./",
   configureWebpack: {
     // 配置 reslove 字段，缩小webpack寻找模块的范围
     resolve: {

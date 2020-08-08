@@ -52,11 +52,5 @@
     "insertPragma": false,
     "trailingComma": "none",
     "arrowParens": "avoid"
-  },
-  "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "maintained node versions",
-    "not dead"
-  ]
+  }
 }

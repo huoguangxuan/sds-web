@@ -1,6 +1,15 @@
 <template>
   <div class="flexcc flexcol login">
-    <wo-tabs v-model="active" :activeIndex="active" :data="tabs"> </wo-tabs>
+    <ul class="mytab">
+      <li
+        v-for="(tab, index) in tabs"
+        @click="() => tabClick(index)"
+        :key="index"
+        :class="{ active: active == index }"
+      >
+        {{ tab }}
+      </li>
+    </ul>
     <div class="content panel">
       <div v-if="active === 0">
         <qrcode class="qrcode" :value="value" :size="size" level="H" />
@@ -9,89 +18,76 @@
           <span style="color:orange">手机营业厅app</span>扫描二维码
         </p>
       </div>
-      <div v-else class="flexcc flexrow">
-        <wo-form validate-first @submit="login" style="width:40%">
-          <!-- 手机号 -->
-          <wo-field
-            v-model="mobile"
-            name="mobile"
-            type="tel"
-            clearable
-            placeholder="请输入手机号"
-          />
-          <!-- 密码 -->
-          <wo-field
-            v-if="active === 1"
-            v-model="password"
-            name="password"
-            :type="passwordType"
-            clearable
-            :right-icon="eye"
-            @click-right-icon="eyeClick"
-            placeholder="请输入密码"
-          />
-          <!-- 验证码 -->
-          <wo-field
-            v-if="isSmsLogin"
-            v-model="sms"
-            clearable
-            type="number"
-            placeholder="请输入短信验证码"
+      <div v-else>
+        <!-- 手机号 -->
+        <input type="text" v-model="mobile" placeholder="请输入手机号" />
+        <wo-input
+          v-model="mobile"
+          name="mobile"
+          type="tel"
+          clearable
+          placeholder="请输入手机号"
+        />
+        <!-- 密码 -->
+        <wo-input
+          v-if="active === 1"
+          v-model="password"
+          name="password"
+          :type="passwordType"
+          clearable
+          :right-icon="eye"
+          @click-right-icon="eyeClick"
+          placeholder="请输入密码"
+        />
+        <!-- 验证码 -->
+        <wo-input
+          v-if="active == 1"
+          v-model="sms"
+          clearable
+          type="number"
+          placeholder="请输入短信验证码"
+        >
+        </wo-input>
+        <wo-button
+          v-if="active == 1"
+          size="mini"
+          :disabled="sendStatus"
+          @touchstart="getSms"
+          native-type="button"
+          type="warning"
+        >
+          <span v-show="show">获取验证码</span>
+          <span v-show="!show" class="count">{{ count }}s重新发送</span>
+        </wo-button>
+        <div style="margin: 16px;">
+          <wo-button
+            block
+            :disabled="!submitStatus"
+            type="warning"
+            native-type="submit"
+            >授权</wo-button
           >
-            <template #button>
-              <wo-button
-                v-if="isSmsLogin"
-                size="mini"
-                :disabled="sendStatus"
-                @touchstart="getSms"
-                native-type="button"
-                type="warning"
-              >
-                <span v-show="show">获取验证码</span>
-                <span v-show="!show" class="count">{{ count }}s重新发送</span>
-              </wo-button>
-            </template>
-          </wo-field>
-          <div style="margin: 16px;">
-            <wo-button
-              block
-              :disabled="!submitStatus"
-              type="warning"
-              native-type="submit"
-              >授权</wo-button
-            >
-          </div>
-        </wo-form>
+        </div>
       </div>
     </div>
+    <wo-dialog
+      title="标题"
+      content="内容内容内容内容内容内容内容内容内容内容内容内容"
+      v-model="demo1"
+    >
+    </wo-dialog>
   </div>
 </template>
 <script>
-import { Toast, Tabs } from "woui-mobile";
+import { Dialog, Toast, Input } from "woui-mobile";
 import api from "@/api";
 export default {
   data: function() {
     return {
-      tabs: [
-        {
-          title: "扫码登录",
-          content: ""
-        },
-        {
-          title: "密码登录",
-          content: ""
-        },
-        {
-          title: "短信登录",
-          content: ""
-        }
-      ],
+      tabs: ["扫码登录", "密码登录", "短信登录"],
       active: 0,
       value: "www.baidu.com",
       size: 150,
-      isPasswordLogin: false, //密码登录
-      isSmsLogin: false, //短信验证码登录
-      isQrcodeLogin: true, //二维码登录
       mobilePattern: /^1[3|4|5|7|8][0-9]{9}$/, //手机号校验
       passwordPattern: /^.\w{6,16}$/, //密码校验
       smsPattern: /^\d{6}$/,
@@ -102,11 +98,13 @@ export default {
       eye: "closed-eye",
       count: 60,
       show: true,
-      sendStatus: false
+      sendStatus: false,
+      demo1: false
     };
   },
   components: {
-    [Tabs.name]: Tabs
+    [Dialog.name]: Dialog,
+    [Input.name]: Input
   },
   computed: {
     mobileStatus() {
@@ -125,22 +123,12 @@ export default {
       );
     }
   },
-  watch: {
-    isQrcodeLogin(newVal) {
-      if (newVal) {
-        // open
-        console.log("open");
-      } else {
-        // close
-        console.log("close");
-      }
-    }
-  },
-  created() {
-    this.$parent.$refs["head"].title &&
-      (this.$parent.$refs["head"].title = "扫码登录");
-  },
+  mounted() {},
   methods: {
+    tabClick(index) {
+      this.active = index;
+      console.log(index);
+    },
     getSms() {
       if (!this.mobileStatus) {
         Toast("请先输入手机号");
@@ -172,7 +160,7 @@ export default {
     login() {
       // 密码登录
       const params = {
-        isSms: this.isSmsLogin,
+        isSms: this.active == 1,
         mobile: this.mobile,
         sms: this.sms
         // password: MD5(this.password)
@@ -192,8 +180,39 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.mytab {
+  font-size: 27px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  line-height: 40px;
+  text-align: center;
+  li {
+    margin: 20px 76px;
+    &.active {
+      color: #ff7300;
+      position: relative;
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 7px;
+        position: absolute;
+        bottom: -12px;
+        background: #ff7300;
+        box-shadow: 0 3px 7px 0 rgba(255, 146, 102, 0.5);
+        border-radius: 3px;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+.content {
+  width: 80%;
+}
 .login {
-  height: calc(100vh - 60px);
+  height: calc(100vh);
 }
 .scan {
   font-size: 20px;
@@ -209,29 +228,15 @@ export default {
 
   margin: 25px;
 }
-/deep/ .wo-cell::after {
-  border-bottom: 1px solid #999;
-}
 
 /deep/ input::-webkit-input-placeholder {
   color: #999;
   font-size: 14px;
 }
-/deep/.wo-tab {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 20px;
+/deep/ .wo-input__wrapper {
+  line-height: 50px;
 }
-/deep/ .wo-tabs__nav {
-  background: transparent;
-}
-.content {
-  height: 40vh;
-  width: 60vw;
-  margin-top: 30px;
-}
-/deep/ .wo-tabs__line {
-  height: 5px;
-  bottom: 5px;
+/deep/ .wo-input__inner {
+  height: 30px;
 }
 </style>
