@@ -34,6 +34,12 @@ export default {
       removeToken();
       localStorage.removeItem(USER_DATA);
       if (router.path !== "/") resetRouter();
+    },
+    showLoading(state) {
+      state.LOADING = true;
+    },
+    hideLoading(state) {
+      state.LOADING = false;
     }
   },
   actions: {

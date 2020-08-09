@@ -12,81 +12,87 @@
     </ul>
     <div class="content panel">
       <div v-if="active === 0">
-        <qrcode class="qrcode" :value="value" :size="size" level="H" />
-        <p class="ac scan ">
+        <div class="scanbox">
+          <div class="qrborders">
+            <div v-if="qrTimeout" class="refresh-qrcode flexcc flexcol">
+              <img src="@/assets/img/icon_refresh.png" alt />
+              <p>点击刷新二维码</p>
+            </div>
+            <qrcode class="qrcode" :value="qrurl" :size="size" level="H" />
+          </div>
+          <img src="@/assets/ss.jpg" class="right-img" alt />
+        </div>
+        <p class="ac scan">
           请使用
-          <span style="color:orange">手机营业厅app</span>扫描二维码
+          <span style="color:#ff7300">手机营业厅APP 扫描登录</span>
         </p>
       </div>
-      <div v-else>
+      <div v-else style="margin:20px 123px 0px">
         <!-- 手机号 -->
-        <input type="text" v-model="mobile" placeholder="请输入手机号" />
-        <wo-input
-          v-model="mobile"
-          name="mobile"
-          type="tel"
+        <my-input
+          type="text"
+          :val.sync="mobile"
           clearable
+          left-icon="mobile"
           placeholder="请输入手机号"
         />
         <!-- 密码 -->
-        <wo-input
-          v-if="active === 1"
-          v-model="password"
-          name="password"
-          :type="passwordType"
+        <my-input
+          type="password"
+          v-if="active == 1"
+          :val.sync="password"
           clearable
-          :right-icon="eye"
-          @click-right-icon="eyeClick"
+          left-icon="pwd"
+          right-icon="eye"
           placeholder="请输入密码"
         />
         <!-- 验证码 -->
-        <wo-input
-          v-if="active == 1"
-          v-model="sms"
-          clearable
-          type="number"
-          placeholder="请输入短信验证码"
+        <my-input
+          type="text"
+          v-if="active == 2"
+          :val.sync="sms"
+          left-icon="sms"
+          placeholder="请输入验证码"
         >
-        </wo-input>
-        <wo-button
-          v-if="active == 1"
-          size="mini"
-          :disabled="sendStatus"
-          @touchstart="getSms"
-          native-type="button"
-          type="warning"
-        >
-          <span v-show="show">获取验证码</span>
-          <span v-show="!show" class="count">{{ count }}s重新发送</span>
-        </wo-button>
-        <div style="margin: 16px;">
-          <wo-button
-            block
-            :disabled="!submitStatus"
-            type="warning"
-            native-type="submit"
-            >授权</wo-button
-          >
+          <template v-slot:sms v-if="active == 2">
+            <wo-button
+              class="getsms"
+              @touchstart="getSms"
+              @click="getSms"
+              inline
+              type="basic"
+            >
+              <span v-show="show">获取验证码</span>
+              <span v-show="!show" class="count">{{ count }}s重新发送</span>
+            </wo-button>
+          </template>
+        </my-input>
+        <div style="margin-top: 38px;" class="confirm">
+          <wo-button @click="login">确认登录</wo-button>
         </div>
       </div>
     </div>
     <wo-dialog
-      title="标题"
-      content="内容内容内容内容内容内容内容内容内容内容内容内容"
-      v-model="demo1"
-    >
-    </wo-dialog>
+      class="mydialog"
+      :class="{ nocancel: !cancelText }"
+      :title="dialogTitle"
+      :content="dialogContent"
+      :cancelText="cancelText"
+      :confirmText="confirmText"
+      v-model="confirmDialog"
+    ></wo-dialog>
   </div>
 </template>
 <script>
 import { Dialog, Toast, Input } from "woui-mobile";
+import myInput from "@/components/Input";
 import api from "@/api";
 export default {
   data: function() {
     return {
-      tabs: ["扫码登录", "密码登录", "短信登录"],
-      active: 0,
-      value: "www.baidu.com",
+      tabs: ["扫码登录", "密码登录", "短信登录"], //登录方式
+      active: 0, //默认选中tab
+      qrurl: "", //二维码地址
       size: 150,
       mobilePattern: /^1[3|4|5|7|8][0-9]{9}$/, //手机号校验
       passwordPattern: /^.\w{6,16}$/, //密码校验
@@ -99,12 +105,18 @@ export default {
       count: 60,
       show: true,
       sendStatus: false,
-      demo1: false
+      dialogTitle: "标题",
+      confirmDialog: false,
+      confirmText: "确认",
+      cancelText: "",
+      dialogContent: "",
+      qrTimeout: false
     };
   },
   components: {
     [Dialog.name]: Dialog,
-    [Input.name]: Input
+    [Input.name]: Input,
+    myInput
   },
   computed: {
     mobileStatus() {
@@ -123,22 +135,30 @@ export default {
       );
     }
   },
-  mounted() {},
   methods: {
     tabClick(index) {
       this.active = index;
-      console.log(index);
     },
     getSms() {
+      if (!this.mobile) {
+        // Toast.info("请先输入手机号");
+        this.dialogContent = "请输入手机号";
+        this.dialogTitle = "温馨提示";
+        this.confirmDialog = true;
+        return;
+      }
       if (!this.mobileStatus) {
-        Toast("请先输入手机号");
+        // Toast.info("请先输入手机号");
+        this.dialogContent = "请输入11位手机号";
+        this.dialogTitle = "温馨提示";
+        this.confirmDialog = true;
         return;
       }
       this.sendStatus = true;
       api
         .getSms(this.mobile)
         .then(res => {
-          Toast(res.responseMSG);
+          Toast.info(res.responseMSG);
           //弄个60秒倒计时
           let timer;
           let self = this;
@@ -153,9 +173,7 @@ export default {
             }
           }, 1000);
         })
-        .catch(err => {
-          Toast(`${err},请稍后重新发送验证码！`);
-        });
+        .catch();
     },
     login() {
       // 密码登录
@@ -166,40 +184,82 @@ export default {
         // password: MD5(this.password)
       };
       this.$store.dispatch("user/login", params);
-    },
-    eyeClick() {
-      if (this.passwordType === "password") {
-        this.passwordType = "text";
-        this.eye = "eye-o";
-      } else {
-        this.passwordType = "password";
-        this.eye = "closed-eye";
-      }
     }
   }
 };
 </script>
 <style lang="less" scoped>
+.mydialog {
+  /deep/ .wo-dialog__wrapper {
+    width: 598px;
+  }
+  /deep/ .wo-dialog__title {
+    font-size: 30px;
+    font-weight: bold;
+    padding: 40px 40px 0px;
+  }
+  /deep/ .wo-dialog__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    padding: 20px 117px;
+  }
+  /deep/ .wo-hairline--top {
+    height: 80px;
+  }
+  /deep/ .wo-dialog__cancel,
+  /deep/ .wo-dialog__confirm {
+    font-size: 26px;
+    font-weight: 600;
+  }
+  /deep/ .wo-dialog__control {
+    margin-top: 30px;
+  }
+}
+.nocancel {
+  /deep/ .wo-dialog__control {
+    background: #ff7300;
+  }
+  /deep/ .wo-dialog__confirm {
+    color: #fff;
+  }
+}
+.getsms {
+  position: absolute;
+  right: 0;
+  span {
+    font-size: 22px;
+  }
+}
+.confirm {
+  /deep/ .wo-button {
+    font-size: 26px;
+    height: 66px;
+  }
+}
+
 .mytab {
-  font-size: 27px;
+  font-size: 26px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  line-height: 40px;
   text-align: center;
+  margin: 55px 0px 44px 0px;
   li {
-    margin: 20px 76px;
+    margin: 0px 70px;
     &.active {
       color: #ff7300;
       position: relative;
+      font-weight: 600;
       &::after {
         content: "";
         display: block;
         width: 100%;
         height: 7px;
         position: absolute;
-        bottom: -12px;
+        bottom: -22px;
         background: #ff7300;
         box-shadow: 0 3px 7px 0 rgba(255, 146, 102, 0.5);
         border-radius: 3px;
@@ -209,26 +269,57 @@ export default {
   }
 }
 .content {
-  width: 80%;
+  width: 626px;
+  height: 320px;
+}
+.scanbox {
+  margin: 25px auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 .login {
   height: calc(100vh);
+  justify-content: start;
 }
 .scan {
-  font-size: 20px;
+  font-size: 28px;
   line-height: 30px;
 }
 .qrcode {
-  width: 150px;
-  width: 150px;
+  width: 200px;
+  width: 200px;
   /deep/ canvas {
     width: 100% !important;
     height: 100% !important;
   }
-
-  margin: 25px;
+  display: inline-block;
 }
-
+.qrborders {
+  padding: 10px;
+  padding-bottom: 5px;
+  position: relative;
+}
+.refresh-qrcode {
+  width: 220px;
+  height: 220px;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  img {
+    margin: 10px;
+  }
+  p {
+    color: #fff;
+    font-size: 20px;
+  }
+}
+.right-img {
+  width: 90px;
+  height: 170px;
+  vertical-align: bottom;
+}
 /deep/ input::-webkit-input-placeholder {
   color: #999;
   font-size: 14px;
