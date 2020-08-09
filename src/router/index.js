@@ -40,6 +40,13 @@ let routes = [
     name: "user-info",
     component: () => import(/* webpackChunkName: "pages" */ "../views/userInfo")
   },
+  //版本信息
+  {
+    path: "/edition",
+    name: "edition",
+    component: () =>
+      import(/* webpackChunkName: "pages" */ "../views/userInfo/edition")
+  },
   //流量查询
   {
     path: "/netFlow",
