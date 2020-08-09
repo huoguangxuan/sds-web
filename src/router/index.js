@@ -19,10 +19,23 @@ let routes = [
   },
   //欢迎使用联通
   {
-    path: "/GoTo",
+    path: "/goto",
     name: "GoTo",
     component: () => import(/* webpackChunkName: "pages" */ "../views/GoTo")
   },
+  //用户协议
+  {
+    path: "/agreement",
+    name: "agreement",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/agreement")
+  },
+  //隐私政策
+  {
+    path: "/privacy",
+    name: "privacy",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/privacy")
+  },
+  
   {
     path: "/home",
     name: "home",

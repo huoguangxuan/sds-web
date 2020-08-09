@@ -1,20 +1,20 @@
 <template>
   <div id="app">
     <!-- 公共头部 -->
-    <public-head ref="head"></public-head>
+    <!-- <public-head ref="head"></public-head> -->
     <!-- 内容区域 -->
-    <div class="contentArea">
+    <!-- <div class="contentArea"> -->
       <router-view></router-view>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
-import PublicHead from "./components/publichead";
+// import PublicHead from "./components/publichead";
 export default {
-  components: {
-    PublicHead
-  }
+  // components: {
+  //   PublicHead
+  // }
 };
 </script>
 <style lang="less" scoped></style>
