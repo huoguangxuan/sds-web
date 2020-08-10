@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- 内容区域 -->
+    <!-- 公共头部 -->    <!-- 内容区域 -->
     <div class="contentArea">
       <router-view></router-view>
     </div>
@@ -8,8 +8,18 @@
 </template>
 
 <script>
+<<<<<<< .mine
 export default {
   components: {}
 };
+=======
+export default {};
+
+
+>>>>>>> .theirs
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+#app {
+  background: #f7f8f9;
+}
+</style>

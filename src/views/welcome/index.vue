@@ -15,19 +15,26 @@
       @click="() => $router.push('/login')"
       >前往登录</van-button
     >
+    {{ aa }}
+    <wo-dialog title="标题" :content="aa" v-model="demo1"> </wo-dialog>
   </div>
 </template>
 <script>
-// import { Dialog } from "vant";
 import { mapState } from "vuex"; // createNamespacedHelpers
+import { Dialog, Toast } from "woui-mobile";
 export default {
   data: function() {
     return {
       value: "www.baidu.com",
       size: 150,
       logoSrc: require("@/assets/logo.png"),
-      show: false
+      show: false,
+      demo1: true,
+      aa: "123"
     };
+  },
+  components: {
+    [Dialog.name]: Dialog
   },
   computed: {
     ...mapState({
@@ -36,12 +43,29 @@ export default {
   },
   created() {
     this.getUserInfo();
+    window.dialog = function(a) {
+      Toast.info(a, "", 3000, "center", true);
+    };
+    // android && android.setMessage && android.setMessage();
   },
   methods: {
     getUserInfo() {
-      this.$store.dispatch("user/isLogin", "22:19:ac:18:24").then(() => {
-        console.log(this.user);
-      });
+      const params = {
+        req_sec_info:
+          "JB1fAUwbbcBxKDckxo2EG/03RhY71BDlZ+2My3F0yIA5CbrwA03Dh7iRCiCssg9nF7VC8XUGViY1Q0nku8anuHjx9l7uvC9j8M+Ed342EYXCqMzsPeWT1wkAINitZhPRncru82Kcvtw8DYOTptVVnUr7iJ9kG7YmAUZSoPnFeL/RflCa78uyHdx3xRTy5LOqTkZE+ym466zB6KZ96hIzpD3Epw42y9qQaIFw/bW4q1xa9XvMAgDLu6RUGGxQ34Osg9G5IDxXvJxIIzfw7W/ls6AAcNmcU5RaekbnuIKPy6l90LCGF/PHRdbQWt341wA6wykgs8vwZIdWjGbt1tOyYw==",
+        req_seq: "20141111135439XXXX",
+        req_sys_org_no: "ORG_NO_1",
+        req_time: 20180101133254,
+        service_id: "TestReq",
+        sign: "string"
+      };
+      // this.$store.dispatch("user/isLogin", params).then(() => {
+      //   console.log(this.user);
+      // });
+    },
+    alertInfo(a) {
+      this.aa = a;
+      Toast.info(a, "", 3000, "center", true);
     }
   }
 };

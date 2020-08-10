@@ -2,7 +2,6 @@ import axios from "axios";
 import store from "@/store";
 import { getToken } from "@/utils/auth";
 import { Dialog } from "vant";
-
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url

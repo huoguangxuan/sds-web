@@ -1,6 +1,6 @@
 import axios from "@/utils/request";
 
-const prefix = "";
+const prefix = "/sds-front";
 
 export default {
   login(params) {
@@ -17,7 +17,7 @@ export default {
     return axios.get(`${prefix}/user/getSms`, params);
   },
   isLogin(params) {
-    return axios.get(`${prefix}/user/isLogin`, params);
+    return axios.get(`${prefix}/v1/userLogin/isLogin`, params);
   },
   getCode(mobile) {
     return axios.get(`${prefix}/getCode/${mobile}`);

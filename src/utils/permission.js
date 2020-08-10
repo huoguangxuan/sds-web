@@ -7,10 +7,12 @@ import getPageTitle from "@/utils/get-page-title";
 const whiteList = [
   "/login",
   "/",
+  "/home",
   "/chargeQuery",
   "/otherUsers",
   "/404",
   "/recharge",
+  "/edition",
   "/amountSelection",
   "/recharging",
   "/rechargeOk",

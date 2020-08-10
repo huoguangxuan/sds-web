@@ -55,4 +55,7 @@ export default {
 .text-center {
   text-align: center;
 }
+h2 {
+  font-size: 22px;
+}
 </style>

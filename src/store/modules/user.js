@@ -33,7 +33,13 @@ export default {
       state.token = null;
       removeToken();
       localStorage.removeItem(USER_DATA);
-      resetRouter();
+      if (router.path !== "/") resetRouter();
+    },
+    showLoading(state) {
+      state.LOADING = true;
+    },
+    hideLoading(state) {
+      state.LOADING = false;
     }
   },
   actions: {
@@ -54,7 +60,8 @@ export default {
         //   });
         // }, 1500);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+        // state.commit(LOGOUT);
       }
     },
     async login(state, data) {
