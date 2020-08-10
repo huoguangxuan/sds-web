@@ -14,8 +14,9 @@ const whiteList = [
   "/recharge",
   "/GoTo",
   "/agreement",
-  "/privacy"
-  "/edition",  "/amountSelection",
+  "/privacy",
+  "/edition",
+  "/amountSelection",
   "/recharging",
   "/rechargeOk",
   "/baseInfo"
