@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Welcome from "../views/welcome";
 import store from "../store";
 
+
 Vue.use(VueRouter);
 
 let routes = [
@@ -16,6 +17,25 @@ let routes = [
     name: "404",
     component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
   },
+  //欢迎使用联通
+  {
+    path: "/goto",
+    name: "GoTo",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/GoTo")
+  },
+  //用户协议
+  {
+    path: "/agreement",
+    name: "agreement",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/agreement")
+  },
+  //隐私政策
+  {
+    path: "/privacy",
+    name: "privacy",
+    component: () => import(/* webpackChunkName: "pages" */ "../views/privacy")
+  },
+  
   {
     path: "/home",
     name: "home",
