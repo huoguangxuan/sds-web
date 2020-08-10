@@ -87,7 +87,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 80vh;
+  height: 60vh;
   .center {
     display: flex;
     text-align: center;
@@ -124,7 +124,8 @@ export default {
     }
   }
   .content {
-    margin-top: 34px;
+    margin-left: 40px;
+    margin-top: 40px;
     font-family: PingFangSC-Regular;
     font-size: 26px;
     color: #666666;
