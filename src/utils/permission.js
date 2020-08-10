@@ -15,7 +15,7 @@ const whiteList = [
   "/recharging",
   "/baseInfo",
   "/netFlow",
-  "/userInfo"
+  "/userInfo",
   "/rechargeOk",
   "/baseInfo"
 ]; // 白名单列表

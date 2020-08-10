@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 公共头部 -->
-    <public-head ref="head"></public-head>
+    <!-- <public-head ref="head"></public-head> -->
     <!-- 内容区域 -->
     <div class="contentArea">
       <router-view></router-view>
