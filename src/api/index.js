@@ -19,6 +19,9 @@ export default {
   isLogin(params) {
     return axios.get(`${prefix}/v1/userLogin/isLogin`, params);
   },
+  getinquire() {
+    return axios.get(`/inquire`);
+  },
   getCode(mobile) {
     return axios.get(`${prefix}/getCode/${mobile}`);
   },

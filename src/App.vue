@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <!-- 内容区域 -->
     <!-- <div class="contentArea"> -->
       <router-view></router-view>
