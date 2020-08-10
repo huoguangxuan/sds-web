@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import "@/utils/permission";
 import QrcodeVue from "qrcode.vue";
+import "@/assets/font/font.css"
 
 // 使用woui
 import woUi from "@/components/woui";

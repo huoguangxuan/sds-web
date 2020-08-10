@@ -32,6 +32,7 @@ export default {};
   font-family: PingFangSC-Semibold;
 //   width: 1024px;
 //   height: 600px;
+overflow: hidden;
   .tit {
     display: flex;
     align-items: center;

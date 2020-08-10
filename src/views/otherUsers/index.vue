@@ -1,30 +1,44 @@
 <template>
-  <div class="other_users">
-    <!-- 内容区域 -->
-    <div class="center">
-      <!-- 软件A -->
-      <div class="qrcode">
-        <qrcode
-          :value="optionA.value"
-          :size="size"
-          level="L"
-          renderAs="svg"
-        ></qrcode>
-        <p>软件A名称</p>
-      </div>
-      <!-- 软件B -->
-      <div class="qrcode">
-        <qrcode
-          :value="optionB.value"
-          :size="size"
-          level="L"
-          renderAs="svg"
-        ></qrcode>
-        <p>软件B名称</p>
-      </div>
+  <div>
+    <!--头部区域-->
+    <div class="other_users_head">
+      <span @click="backToPrevious()">
+        <wo-icon name="arrow-left" size="md" color="#333333"></wo-icon>
+      </span>
+      <span>基本信息</span>
     </div>
-    <div class="content">
-      <p>对不起，暂时只支持联通手机号码的查询业务</p>
+    <!-- 内容区域 -->
+    <div class="other_users">
+      <div class="center">
+        <!-- 5G畅爽冰激凌 -->
+        <div class="qrcode">
+          <div class="main_box img1">
+            <qrcode
+              :value="optionA.value"
+              :size="size"
+              level="L"
+              renderAs="svg"
+            ></qrcode>
+          </div>
+          <p>5G畅爽冰激凌</p>
+        </div>
+        <!-- 5G腾讯王卡 -->
+        <div class="qrcode">
+          <div class="main_box img2">
+            <qrcode
+              :value="optionB.value"
+              :size="size"
+              level="L"
+              renderAs="svg"
+            ></qrcode>
+          </div>
+          <p>5G腾讯王卡</p>
+        </div>
+        <div></div>
+      </div>
+      <div class="content">
+        <p>对不起，暂时只支持联通手机号码的查询业务。</p>
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +57,12 @@ export default {
           "https://m.10010.com/queen/CB-currency-template/homepage.html?salesId=98X2004171556599537&channel=06-0324-1767-6763"
       }
     };
+  },
+  methods: {
+    // 返回上一页
+    backToPrevious() {
+      return this.$router.back(-1);
+    }
   }
 };
 </script>
@@ -51,6 +71,16 @@ export default {
 * {
   margin: 0;
   padding: 0;
+}
+.other_users_head {
+  margin-top: 26px;
+  margin-left: 49px;
+  & span:nth-child(2) {
+    margin-left: 22px;
+    font-family: PingFangSC-Semibold;
+    font-size: 34px;
+    color: #333333;
+  }
 }
 .other_users {
   display: flex;
@@ -62,19 +92,43 @@ export default {
     display: flex;
     text-align: center;
     .qrcode {
-      width: 300px;
-      height: 220px;
+      .main_box {
+        height: 282px;
+        width: 377px;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        position: relative;
+      }
+      .img1 {
+        margin-right: 30px;
+        background-image: url("../../assets/images/img_5G.png");
+      }
+      .img2 {
+        background-image: url("../../assets/images/img_5G_Card.png");
+      }
       /deep/ svg {
-        width: 130px !important;
-        height: 130px !important;
+        border: 4px solid #ffffff;
+        height: 92px !important;
+        width: 92px !important;
+        position: absolute;
+        right: 0;
+        bottom: 0;
       }
       p {
-        font-size: 17px;
+        margin-top: 10px;
+        font-family: PingFangSC-Semibold;
+        font-size: 28px;
+        font-weight: 500;
+        color: #ff6023;
       }
     }
   }
   .content {
-    font-size: 25px;
+    margin-top: 34px;
+    font-family: PingFangSC-Regular;
+    font-size: 26px;
+    color: #666666;
+    text-align: center;
   }
 }
 </style>
